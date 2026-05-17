@@ -18,7 +18,7 @@
     --rule-faint:   #E4E2D7;
     --ink:          #1A1A1A;
     --ink-2:        #4A4A46;
-    --ink-3:        #7A7972;
+    --ink-3:        #6E6D67;
     --accent:       #3D5A6C;     /* muted steel-blue */
     --accent-soft:  #DCE2E6;
     --accent-tint:  #EEF1F3;
@@ -261,16 +261,28 @@
     color: var(--ink-3);
     font-size: 10.5px;
     letter-spacing: 0.12em;
-    padding: 5px 10px;
+    /* visual chip stays small; padding inflates the hit area to ≥44×44 */
+    padding: 12px 16px;
+    min-height: 44px;
+    min-width: 44px;
     cursor: pointer;
     text-transform: uppercase;
     transition: color 120ms ease, border-color 120ms ease;
   }
-  .replot-replay:hover,
+  .replot-replay:hover {
+    color: var(--ink);
+    border-color: var(--rule);
+  }
   .replot-replay:focus-visible {
     color: var(--ink);
     border-color: var(--rule);
-    outline: none;
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  @media (forced-colors: active) {
+    .replot-replay:focus-visible {
+      outline: 2px solid CanvasText;
+    }
   }
   .replot-label {
     margin: 14px 2px 0;
@@ -298,11 +310,12 @@
     stroke-dashoffset: 100;
   }
 
-  /* per-feature stagger tiers (additive offset on top of --unit-delay) */
+  /* per-feature stagger tiers (additive offset on top of --unit-delay)
+     amplified so outline (tier 0) visibly precedes details inside the 4.0s draw phase */
   .replot-svg .rp-tier-0 { --stagger: 0s; }
-  .replot-svg .rp-tier-1 { --stagger: 0.15s; }
-  .replot-svg .rp-tier-2 { --stagger: 0.3s; }
-  .replot-svg .rp-tier-3 { --stagger: 0.45s; }
+  .replot-svg .rp-tier-1 { --stagger: 0.6s; }
+  .replot-svg .rp-tier-2 { --stagger: 1.2s; }
+  .replot-svg .rp-tier-3 { --stagger: 1.8s; }
 
   /* Unit A: draw → hold → erase, then stay hidden for rest of cycle */
   .replot.is-playing .rp-unit-a path,
@@ -369,7 +382,11 @@
     .rp-label-b { opacity: 1; }
   }
   .replot.reduced-motion .rp-unit-a { display: none; }
-  .replot.reduced-motion .rp-unit-b * {
+  .replot.reduced-motion .rp-unit-b path,
+  .replot.reduced-motion .rp-unit-b line,
+  .replot.reduced-motion .rp-unit-b rect,
+  .replot.reduced-motion .rp-unit-b circle,
+  .replot.reduced-motion .rp-unit-b polyline {
     stroke-dasharray: none;
     stroke-dashoffset: 0;
   }
@@ -444,9 +461,9 @@
     .matrix tbody tr:last-child { border-bottom: 0; }
     .matrix td { width: 100% !important; padding: 4px 18px; border: 0; }
     .matrix td.cat { padding-top: 14px; padding-bottom: 6px; }
-    .matrix td.col-a::before { content: "XR — "; color: var(--ink-3); }
-    .matrix td.col-b::before { content: "S25 FE — "; color: var(--ink-3); }
-    .matrix td.delta::before { content: "Δ "; color: var(--ink-3); }
+    .matrix td.col-a::before,
+    .matrix td.col-b::before,
+    .matrix td.delta::before { content: attr(data-label); color: var(--ink-3); }
   }
 
   /* ─── delta bars ────────────────────────────────────────────────── */
@@ -521,8 +538,24 @@
     border: 1px solid var(--rule);
     background: var(--paper);
     padding: 28px 28px 18px;
+    overflow-x: auto;
+    position: relative;
   }
+  .arch-svg-wrap { min-width: 860px; }
   .arch-wrap svg { width: 100%; height: auto; display: block; }
+  /* faint scroll hint on narrow viewports */
+  @media (max-width: 900px) {
+    .arch-wrap::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 24px;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(to right, transparent, var(--paper));
+    }
+  }
   .arch-legend {
     margin-top: 18px;
     padding-top: 16px;
@@ -602,7 +635,7 @@
       <div class="titleblock" role="group" aria-label="title block">
         <div class="tb-main">
           <h1 id="title">Device Evolution <span class="arrow">//</span> 2018 <span class="arrow">→</span> 2025</h1>
-          <p class="subt">A side-by-side technical sheet documenting the transition from <span class="mono">iPhone XR</span> (Q4 2018) to <span class="mono">Samsung Galaxy S25 FE</span> (Q4 2025). Seven model-years of personal hardware, mapped as a single datasheet — display, silicon, memory, optics, power, radios, and ecosystem deltas, with no marketing surface.</p>
+          <p class="subt">Side-by-side datasheet · <span class="mono">iPhone XR</span> (Q4 2018) to <span class="mono">Samsung Galaxy S25 FE</span> (Q4 2025). Seven model-years of personal hardware. Display, silicon, memory, optics, power, radios, ecosystem. No editorial, no score.</p>
 
           <div class="scale-bar" aria-hidden="true">
             <span>SCALE 1 : 1</span>
@@ -731,8 +764,9 @@
           <div class="meta">UNIT A · 2018</div>
           <h3>iPhone XR · front</h3>
           <div class="elev-art">
-            <svg viewBox="0 0 260 360" role="img" aria-labelledby="xr-front-title">
+            <svg viewBox="0 0 260 360" role="img" aria-labelledby="xr-front-title xr-front-desc">
               <title id="xr-front-title">iPhone XR front elevation, 150.9 × 75.7 mm</title>
+              <desc id="xr-front-desc">Front orthographic elevation of iPhone XR. Body 150.9 by 75.7 mm with 14 mm corner radius. Display: 6.1 inch LCD with top-center trapezoidal notch pendant housing front camera, IR speaker slit, and TrueDepth dot. Bottom edge: Lightning port flanked by speaker and microphone grilles. Left edge: silent slider above volume up and volume down. Right edge: sleep/wake button.</desc>
 
               <g class="unit-a-front">
 
@@ -835,8 +869,9 @@
           <div class="meta">UNIT B · 2025</div>
           <h3>Galaxy S25 FE · front</h3>
           <div class="elev-art">
-            <svg viewBox="0 0 260 360" role="img" aria-labelledby="s25-front-title">
+            <svg viewBox="0 0 260 360" role="img" aria-labelledby="s25-front-title s25-front-desc">
               <title id="s25-front-title">Galaxy S25 FE front elevation, 161.3 × 76.6 mm</title>
+              <desc id="s25-front-desc">Front orthographic elevation of Samsung Galaxy S25 FE. Body 161.3 by 76.6 mm with 10 mm corner radius and flatter rails than XR. Display: 6.7 inch AMOLED with top-center punch-hole front camera and ultrasonic in-display fingerprint sensor in lower third. Bottom edge: USB-C port flanked by speaker and microphone grilles. Right edge: volume rocker above power button. Left edge: no controls.</desc>
 
               <g class="unit-b-front">
 
@@ -926,8 +961,9 @@
           <div class="meta">UNIT A · 2018 · REAR</div>
           <h3>iPhone XR · rear</h3>
           <div class="elev-art">
-            <svg viewBox="0 0 260 360" role="img" aria-labelledby="xr-rear-title">
+            <svg viewBox="0 0 260 360" role="img" aria-labelledby="xr-rear-title xr-rear-desc">
               <title id="xr-rear-title">iPhone XR rear elevation, single-lens camera island</title>
+              <desc id="xr-rear-desc">Rear orthographic elevation of iPhone XR. Same 150.9 by 75.7 mm body. Single rounded-square camera island in upper-left containing one 12 megapixel wide lens with f/1.8 aperture and OIS, a quad-LED True Tone flash, and a microphone hole. Apple logo centered mid-body. iPhone wordmark in lower third. Side controls mirrored from front elevation.</desc>
 
               <g class="unit-a-rear">
 
@@ -998,7 +1034,7 @@
                   <line class="drw-dash" pathLength="100" x1="114" y1="128" x2="114" y2="138"/>
                   <line class="drw-dash" pathLength="100" x1="92"  y1="134" x2="114" y2="134"/>
                 </g>
-                <text x="103" y="146" text-anchor="middle" class="lbl-sm">≈ 22</text>
+                <text x="103" y="146" text-anchor="middle" class="lbl-sm">≈ 22 mm</text>
 
               </g>
             </svg>
@@ -1022,8 +1058,9 @@
           <div class="meta">UNIT B · 2025 · REAR</div>
           <h3>Galaxy S25 FE · rear</h3>
           <div class="elev-art">
-            <svg viewBox="0 0 260 360" role="img" aria-labelledby="s25-rear-title">
+            <svg viewBox="0 0 260 360" role="img" aria-labelledby="s25-rear-title s25-rear-desc">
               <title id="s25-rear-title">Galaxy S25 FE rear elevation, three vertically-stacked discrete camera rings</title>
+              <desc id="s25-rear-desc">Rear orthographic elevation of Samsung Galaxy S25 FE. Same 161.3 by 76.6 mm body. Three discrete camera rings stacked vertically along the upper-left, no shared camera island. Top ring: 8 megapixel 3x telephoto with OIS. Middle ring (largest): 50 megapixel wide f/1.8 with OIS. Bottom ring: 12 megapixel ultrawide. LED flash and microphone to the right of the middle ring. SAMSUNG wordmark centered in lower third.</desc>
 
               <g class="unit-b-rear">
 
@@ -1100,7 +1137,7 @@
                   <line class="drw-dash" pathLength="100" x1="84" y1="150" x2="78" y2="150"/>
                   <line class="drw-dash" pathLength="100" x1="80" y1="110" x2="80" y2="150"/>
                 </g>
-                <text x="72" y="132" class="lbl-sm" text-anchor="end">≈ 40</text>
+                <text x="72" y="132" class="lbl-sm" text-anchor="end">≈ 40 mm</text>
 
               </g>
             </svg>
@@ -1135,87 +1172,93 @@
         <tbody>
           <tr>
             <td class="cat">Display</td>
-            <td class="col-a">6.1" LCD · 1792×828 · 326 ppi · 60 Hz</td>
-            <td class="col-b">6.7" AMOLED 2X · 2340×1080 · 120 Hz adaptive · HDR10+</td>
-            <td class="delta">+0.6" · 2× refresh · LCD → AMOLED</td>
+            <td class="col-a" data-label="XR — ">6.1" LCD · 1792×828 · 326 ppi · 60 Hz</td>
+            <td class="col-b" data-label="S25 FE — ">6.7" AMOLED 2X · 2340×1080 · 120 Hz adaptive · HDR10+</td>
+            <td class="delta" data-label="Δ ">+0.6" · 2× refresh · LCD → AMOLED</td>
+          </tr>
+          <tr>
+            <td class="cat">Pixel density</td>
+            <td class="col-a" data-label="XR — ">326 ppi</td>
+            <td class="col-b" data-label="S25 FE — ">~385 ppi</td>
+            <td class="delta" data-label="Δ ">+59 ppi · +18 %</td>
           </tr>
           <tr>
             <td class="cat">SoC</td>
-            <td class="col-a">Apple A12 Bionic · 7 nm · 6C CPU / 4C GPU</td>
-            <td class="col-b">Exynos 2400e · 4 nm · 10C CPU / Xclipse GPU</td>
-            <td class="delta">7 nm → 4 nm · +4 CPU cores</td>
+            <td class="col-a" data-label="XR — ">Apple A12 Bionic · 7 nm · 6C CPU / 4C GPU</td>
+            <td class="col-b" data-label="S25 FE — ">Exynos 2400e · 4 nm · 10C CPU / Xclipse GPU</td>
+            <td class="delta" data-label="Δ ">7 nm → 4 nm · +4 CPU cores</td>
           </tr>
           <tr>
             <td class="cat">Memory</td>
-            <td class="col-a">3 GB</td>
-            <td class="col-b">8 GB LPDDR5X</td>
-            <td class="delta">+5 GB · 2.67×</td>
+            <td class="col-a" data-label="XR — ">3 GB</td>
+            <td class="col-b" data-label="S25 FE — ">8 GB LPDDR5X</td>
+            <td class="delta" data-label="Δ ">+5 GB · 2.67×</td>
           </tr>
           <tr>
             <td class="cat">Storage</td>
-            <td class="col-a">64 / 128 / 256 GB</td>
-            <td class="col-b">128 / 256 / 512 GB · UFS 4.0</td>
-            <td class="delta">2× max · UFS 4.0</td>
+            <td class="col-a" data-label="XR — ">64 / 128 / 256 GB</td>
+            <td class="col-b" data-label="S25 FE — ">128 / 256 / 512 GB · UFS 4.0</td>
+            <td class="delta" data-label="Δ ">2× max · UFS 4.0</td>
           </tr>
           <tr>
             <td class="cat">Rear camera</td>
-            <td class="col-a">12 MP wide f/1.8 OIS · single lens</td>
-            <td class="col-b">50 MP wide f/1.8 OIS · 12 MP UW f/2.2 · 8 MP 3× tele OIS</td>
-            <td class="delta">1 → 3 lenses · +38 MP main</td>
+            <td class="col-a" data-label="XR — ">12 MP wide f/1.8 OIS · single lens</td>
+            <td class="col-b" data-label="S25 FE — ">50 MP wide f/1.8 OIS · 12 MP UW f/2.2 · 8 MP 3× tele OIS</td>
+            <td class="delta" data-label="Δ ">1 → 3 lenses · +38 MP main</td>
           </tr>
           <tr>
             <td class="cat">Front camera</td>
-            <td class="col-a">7 MP f/2.2 · TrueDepth</td>
-            <td class="col-b">12 MP f/2.2 · punch-hole</td>
-            <td class="delta">+5 MP · notch → cutout</td>
+            <td class="col-a" data-label="XR — ">7 MP f/2.2 · TrueDepth</td>
+            <td class="col-b" data-label="S25 FE — ">12 MP f/2.2 · punch-hole</td>
+            <td class="delta" data-label="Δ ">+5 MP · notch → cutout</td>
           </tr>
           <tr>
             <td class="cat">Video</td>
-            <td class="col-a">4K @ 60 fps</td>
-            <td class="col-b">8K @ 30 fps · 4K @ 60 fps</td>
-            <td class="delta">+ 8K capture</td>
+            <td class="col-a" data-label="XR — ">4K @ 60 fps</td>
+            <td class="col-b" data-label="S25 FE — ">8K @ 30 fps · 4K @ 60 fps</td>
+            <td class="delta" data-label="Δ ">+ 8K capture</td>
           </tr>
           <tr>
             <td class="cat">Battery</td>
-            <td class="col-a">2942 mAh</td>
-            <td class="col-b">4900 mAh</td>
-            <td class="delta">+1958 mAh · +66 %</td>
+            <td class="col-a" data-label="XR — ">2942 mAh</td>
+            <td class="col-b" data-label="S25 FE — ">4900 mAh</td>
+            <td class="delta" data-label="Δ ">+1958 mAh · +66 %</td>
           </tr>
           <tr>
             <td class="cat">Charging</td>
-            <td class="col-a">Lightning · 18 W wired · 7.5 W Qi</td>
-            <td class="col-b">USB-C · 45 W wired · 15 W Qi · reverse wireless</td>
-            <td class="delta">2.5× wired · 2× wireless</td>
+            <td class="col-a" data-label="XR — ">Lightning · 18 W wired · 7.5 W Qi</td>
+            <td class="col-b" data-label="S25 FE — ">USB-C · 45 W wired · 15 W Qi · reverse wireless</td>
+            <td class="delta" data-label="Δ ">2.5× wired · 2× wireless</td>
           </tr>
           <tr>
             <td class="cat">Connectivity</td>
-            <td class="col-a">4G LTE · Wi-Fi 5 · BT 5.0</td>
-            <td class="col-b">5G sub-6 · Wi-Fi 6E · BT 5.3 · NFC · UWB</td>
-            <td class="delta">4G → 5G · + UWB</td>
+            <td class="col-a" data-label="XR — ">4G LTE · Wi-Fi 5 · BT 5.0</td>
+            <td class="col-b" data-label="S25 FE — ">5G sub-6 · Wi-Fi 6E · BT 5.3 · NFC · UWB</td>
+            <td class="delta" data-label="Δ ">4G → 5G · + UWB</td>
           </tr>
           <tr>
             <td class="cat">Authentication</td>
-            <td class="col-a">Face ID · structured IR</td>
-            <td class="col-b">Ultrasonic in-display FP · 2D face</td>
-            <td class="delta">IR depth → ultrasonic</td>
+            <td class="col-a" data-label="XR — ">Face ID · structured IR</td>
+            <td class="col-b" data-label="S25 FE — ">Ultrasonic in-display FP · 2D face</td>
+            <td class="delta" data-label="Δ ">IR depth → ultrasonic</td>
           </tr>
           <tr>
             <td class="cat">Operating system</td>
-            <td class="col-a">iOS 12 → iOS 18 · ~6 yrs support</td>
-            <td class="col-b">One UI 7 / Android 15 · 7-yr OS commitment</td>
-            <td class="delta">platform shift · iOS → Android</td>
+            <td class="col-a" data-label="XR — ">iOS 12 → iOS 18 · ~6 yrs support</td>
+            <td class="col-b" data-label="S25 FE — ">One UI 7 / Android 15 · 7-yr OS commitment</td>
+            <td class="delta" data-label="Δ ">platform shift · iOS → Android</td>
           </tr>
           <tr>
             <td class="cat">Ingress</td>
-            <td class="col-a">IP67 · 1 m · 30 min</td>
-            <td class="col-b">IP68 · 1.5 m · 30 min</td>
-            <td class="delta">IP67 → IP68</td>
+            <td class="col-a" data-label="XR — ">IP67 · 1 m · 30 min</td>
+            <td class="col-b" data-label="S25 FE — ">IP68 · 1.5 m · 30 min</td>
+            <td class="delta" data-label="Δ ">IP67 → IP68</td>
           </tr>
           <tr>
             <td class="cat">Weight</td>
-            <td class="col-a">194 g</td>
-            <td class="col-b">~210 g</td>
-            <td class="delta">+16 g · +8 %</td>
+            <td class="col-a" data-label="XR — ">194 g</td>
+            <td class="col-b" data-label="S25 FE — ">~210 g</td>
+            <td class="delta" data-label="Δ ">+16 g · +8 %</td>
           </tr>
         </tbody>
       </table>
@@ -1362,6 +1405,7 @@
       </div>
 
       <div class="arch-wrap">
+        <div class="arch-svg-wrap">
         <svg viewBox="0 0 1080 520" role="img" aria-labelledby="arch-svg-title">
           <title id="arch-svg-title">Architecture diagram showing migration from iOS / Apple ecosystem to Android / Samsung ecosystem</title>
 
@@ -1370,7 +1414,7 @@
           <line x1="20" y1="30" x2="1060" y2="30" class="drw-soft"/>
 
           <!-- left column header -->
-          <text x="120" y="58" text-anchor="middle" class="lbl">UNIT A · 2018 · WALLED GARDEN</text>
+          <text x="120" y="58" text-anchor="middle" class="lbl">UNIT A · 2018 · CLOSED PLATFORM</text>
           <!-- right column header -->
           <text x="960" y="58" text-anchor="middle" class="lbl">UNIT B · 2025 · OPEN ANDROID</text>
           <line x1="20" y1="70" x2="220" y2="70" class="drw-soft"/>
@@ -1481,9 +1525,10 @@
           <text x="290" y="478" class="lbl-sm">DIST</text>
           <line x1="220" y1="473" x2="280" y2="473" class="drw-acc"/>
           <line x1="800" y1="473" x2="860" y2="473" class="drw-acc"/>
-          <text x="540" y="478" text-anchor="middle" class="lbl">WALLED GARDEN  ⟶  OPEN</text>
+          <text x="540" y="478" text-anchor="middle" class="lbl">CLOSED PLATFORM  ⟶  OPEN</text>
 
         </svg>
+        </div>
 
         <div class="arch-legend">
           <span class="key"><span class="swatch"></span>subsystem block</span>
@@ -1583,8 +1628,8 @@
               <line x1="183" y1="44" x2="183" y2="60" class="drw-dash"/>
             </g>
             <g>
-              <text x="469" y="40" text-anchor="middle" class="lbl-sm">USB-C MANDATE (EU)</text>
-              <line x1="469" y1="44" x2="469" y2="60" class="drw-dash"/>
+              <text x="612" y="40" text-anchor="middle" class="lbl-sm">USB-C MANDATE (EU)</text>
+              <line x1="612" y1="44" x2="612" y2="60" class="drw-dash"/>
             </g>
             <g>
               <text x="755" y="40" text-anchor="middle" class="lbl-sm">ON-DEVICE LLMs</text>

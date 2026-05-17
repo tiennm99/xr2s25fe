@@ -1,6 +1,6 @@
 # Device Evolution // iPhone XR → Galaxy S25 FE
 
-Personal upgrade datasheet. Seven years of Apple to Samsung, rendered as a technical blueprint.
+Personal upgrade datasheet — seven-year device gap, Apple to Samsung, rendered as a technical blueprint.
 
 ---
 
@@ -14,7 +14,7 @@ Rendered as one static `index.html`. No framework, no build pipeline, no server.
 
 ## Why
 
-Seven years on the same device generation is a long time in silicon. The XR shipped with a 7nm A12, a single 12MP camera, 3GB of RAM, and an LCD panel. The S25 FE ships with a 4nm Exynos 2500, a 50MP triple-array, 8GB of RAM, and a 120Hz AMOLED panel. The ecosystem also flipped: Lightning → USB-C, iOS → Android, Apple Silicon → Arm Cortex-X.
+Seven years on the same device generation is a long time in silicon. The XR shipped with a 7nm A12, a single 12MP camera, 3GB of RAM, and an LCD panel. The S25 FE ships with a 4nm Exynos 2400e, a 50MP triple-array, 8GB of RAM, and a 120Hz AMOLED panel. The ecosystem also flipped: Lightning → USB-C, iOS → Android, Apple custom cores → ARM Cortex reference cores.
 
 The page exists to map those deltas precisely — not to editorialize about which is better.
 
@@ -39,7 +39,11 @@ The entire page ships as one file. Total external requests: 1 (Google Fonts CDN)
 ## Run Locally
 
 ```bash
+# macOS
 open index.html
+
+# Linux
+xdg-open index.html
 ```
 
 Or, if your browser blocks `file://` for font loading:
@@ -56,7 +60,7 @@ python3 -m http.server 8080
 - **Elevations** — front/side/back orthographic outlines of both devices, annotated with key dimensions
 - **Spec Matrix** — side-by-side table across 20+ hardware fields
 - **Capability Deltas** — visual delta bars showing magnitude of change per category
-- **Architecture** — SoC block diagrams: A12 Bionic vs. Exynos 2500 core layout
+- **Architecture** — ecosystem migration diagram: iOS / Apple stack → Android / Samsung stack across OS, memory, auth, I/O, radio, distribution
 - **Timeline** — annotated product-line timeline from 2018 to 2025, marking the upgrade point
 
 ---
@@ -65,7 +69,7 @@ python3 -m http.server 8080
 
 The aesthetic is engineering blueprint, not consumer tech:
 
-- **Paper**: warm off-white `#F5F0E8` — the color of a printed datasheet left in a drawer
+- **Paper**: warm off-white `#FAFAF7` — the color of a printed datasheet left in a drawer
 - **Ink**: near-black `#1A1A1A` — not pure black, avoids harshness on warm paper
 - **Accent**: single steel-blue `#3D5A6C` — used for callout lines, dimension arrows, section headers
 - **Grid**: faint blueprint grid underlays the page at low opacity
@@ -86,7 +90,7 @@ The constraint is intentional: one accent color forces visual hierarchy through 
 | Battery | 2942 mAh | 4900 mAh |
 | Charging | 18W Lightning | 45W USB-C |
 | Cameras | 1 (12MP wide) | 3 (50MP + 12MP + 8MP) |
-| Network | 4G LTE | 5G (sub-6 + mmWave) |
+| Network | 4G LTE | 5G (sub-6) |
 
 ---
 
