@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Compare iPhone XR and Galaxy S25 FE</title>
+  <meta name="description" content="Compare iPhone XR (2018) and Samsung Galaxy S25 FE (2025). Side-by-side specification matrix." />
+  <meta name="theme-color" content="#FBFBFD" />
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       Concept D · Compare-Page Purist
+       Apple compare-page aesthetic. Light theme only.
+       Centered 980px column. Sticky thead. Hairline dividers.
+       No motion. No marketing voice. Labels only.
+       ───────────────────────────────────────────────────────────── */
+
+    :root{
+      --bg:        #FBFBFD;
+      --surface:   #FFFFFF;
+      --row-tint:  #F5F5F7;
+      --ink:       #1D1D1F;
+      --ink-soft:  #515154;
+      --ink-mute:  #86868B;
+      --rule:      #D2D2D7;
+      --accent:    #0066CC;
+      --col-w:     200px;          /* spec columns */
+      --label-w:   180px;          /* row-label column */
+      --maxw:      980px;
+    }
+
+    *,*::before,*::after{ box-sizing:border-box; }
+    html,body{ margin:0; padding:0; background:var(--bg); color:var(--ink);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+      font-size:17px; line-height:1.47059;          /* Apple body */
+      letter-spacing:-0.022em;
+    }
+
+    /* mono used sparingly for numerals & ISO date */
+    .mono{ font-family:"SF Mono","Menlo","Consolas",monospace; font-size:14px; letter-spacing:0; }
+
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    /* ─── Top bar ─── small, Apple compare nav style ─────────────── */
+    .topbar{
+      position:sticky; top:0; z-index:60;
+      background:rgba(251,251,253,0.92);
+      -webkit-backdrop-filter:saturate(180%) blur(20px);
+              backdrop-filter:saturate(180%) blur(20px);
+      border-bottom:1px solid var(--rule);
+    }
+    .topbar-inner{
+      max-width:var(--maxw); margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      height:44px; padding:0 22px;
+      font-size:14px; letter-spacing:-0.01em;
+    }
+    .topbar a{ color:var(--ink); }
+    .topbar a:hover{ color:var(--accent); text-decoration:none; }
+    .topbar .crumb{ color:var(--ink-mute); }
+    .topbar .right{ display:flex; gap:18px; }
+
+    /* ─── Hero ─── single word ───────────────────────────────────── */
+    .hero{
+      max-width:var(--maxw); margin:0 auto;
+      padding:64px 22px 24px;
+      text-align:center;
+    }
+    .hero h1{
+      margin:0;
+      font-family:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+      font-weight:600;
+      font-size:clamp(40px, 6vw, 80px);
+      line-height:1.05;
+      letter-spacing:-0.015em;
+      color:var(--ink);
+    }
+    .hero .sub{
+      margin:14px auto 0; max-width:560px;
+      color:var(--ink-soft); font-size:17px;
+    }
+
+    /* ─── Matrix ─── the whole page ──────────────────────────────── */
+    .matrix-wrap{
+      max-width:var(--maxw); margin:0 auto;
+      padding:0 22px 80px;
+    }
+
+    .matrix{
+      width:100%;
+      border-collapse:collapse;
+      border-spacing:0;
+      table-layout:fixed;
+      caption-side:top;
+    }
+    .matrix caption{
+      position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;
+    }
+
+    /* sticky column headers — silhouettes + device names */
+    .matrix thead th{
+      position:sticky; top:44px;     /* below topbar */
+      z-index:50;
+      background:var(--bg);
+      vertical-align:bottom;
+      padding:20px 14px 18px;
+      border-bottom:1px solid var(--rule);
+      font-weight:400;
+      text-align:center;
+    }
+    .matrix thead th.col-label{
+      text-align:left;
+      width:var(--label-w);
+      background:var(--bg);
+    }
+    .matrix thead th.col-delta{
+      width:140px;
+      text-align:center;
+      color:var(--ink-mute);
+    }
+
+    /* column header content */
+    .colhead{
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+    }
+    .colhead svg{
+      width:64px; height:120px;
+      display:block;
+    }
+    .colhead .name{
+      font-family:"SF Pro Display",-apple-system,BlinkMacSystemFont,sans-serif;
+      font-weight:600;
+      font-size:21px;
+      line-height:1.19;
+      letter-spacing:0.011em;
+      color:var(--ink);
+      margin-top:8px;
+    }
+    .colhead .year{
+      color:var(--ink-mute);
+      font-size:14px;
+      letter-spacing:-0.01em;
+    }
+
+    /* row-group heading — "Display.", "Power.", etc. */
+    .matrix tr.group td{
+      padding:36px 14px 14px;
+      border-bottom:1px solid var(--rule);
+      background:var(--bg);
+    }
+    .matrix tr.group td h2{
+      margin:0;
+      font-family:"SF Pro Display",-apple-system,BlinkMacSystemFont,sans-serif;
+      font-weight:600;
+      font-size:24px;
+      line-height:1.16667;
+      letter-spacing:0.009em;
+      color:var(--ink);
+    }
+
+    /* spec rows */
+    .matrix tbody td{
+      padding:14px 14px;
+      vertical-align:top;
+      border-bottom:1px solid var(--rule);
+      font-size:15px;
+      line-height:1.4;
+      color:var(--ink);
+      text-align:center;
+    }
+    .matrix tbody th.row-label{
+      padding:14px 14px;
+      vertical-align:top;
+      border-bottom:1px solid var(--rule);
+      font-size:14px;
+      font-weight:400;
+      color:var(--ink-mute);
+      text-align:left;
+      letter-spacing:-0.01em;
+    }
+    .matrix tbody td.cell-val{
+      color:var(--ink);
+    }
+    .matrix tbody td.cell-delta{
+      color:var(--accent);
+      font-size:13px;
+      letter-spacing:0;
+      text-align:center;
+    }
+
+    /* alt row tint inside spec body — every other data row */
+    .matrix tbody tr.spec:nth-of-type(odd) th.row-label,
+    .matrix tbody tr.spec:nth-of-type(odd) td{
+      background:var(--row-tint);
+    }
+
+    /* numerals — small mono accent for measurements */
+    .num{ font-family:"SF Mono","Menlo",monospace; font-size:13px; letter-spacing:0; }
+
+    /* inline mini-bar — used in Capability deltas group */
+    .barpair{ display:flex; flex-direction:column; gap:6px; align-items:stretch; padding:4px 0; }
+    .barpair .bar{
+      position:relative;
+      height:6px; width:100%;
+      background:transparent;
+      border-bottom:1px solid var(--rule);
+    }
+    .barpair .bar i{
+      position:absolute; left:0; top:0; height:6px;
+      background:var(--ink);
+      border-radius:1px;
+    }
+    .barpair .bar.b i{ background:var(--accent); }
+    .barpair .v{
+      font-family:"SF Mono","Menlo",monospace;
+      font-size:12px;
+      color:var(--ink-soft);
+      text-align:left;
+    }
+
+    /* Ownership-span timeline row */
+    .timeline{
+      position:relative;
+      height:48px;
+      margin:6px 0 0;
+    }
+    .timeline .axis{
+      position:absolute; left:0; right:0; top:23px;
+      height:1px; background:var(--rule);
+    }
+    .timeline .tick{
+      position:absolute; top:18px; width:1px; height:11px; background:var(--rule);
+    }
+    .timeline .tick span{
+      position:absolute; top:14px; left:50%;
+      transform:translateX(-50%);
+      font-family:"SF Mono","Menlo",monospace; font-size:11px;
+      color:var(--ink-mute);
+      white-space:nowrap;
+    }
+    .timeline .seg{
+      position:absolute; height:6px; top:20px;
+      border-radius:3px;
+    }
+    .timeline .seg.a{ background:var(--ink); }
+    .timeline .seg.b{ background:var(--accent); }
+    .timeline .seg .lbl{
+      position:absolute; top:-18px; left:0;
+      font-size:11px; color:var(--ink-soft); letter-spacing:-0.01em;
+      white-space:nowrap;
+    }
+
+    /* matrix footnote */
+    .matrix-note{
+      max-width:var(--maxw); margin:0 auto;
+      padding:24px 22px 0;
+      color:var(--ink-mute); font-size:12px; line-height:1.5;
+      text-align:center;
+    }
+
+    /* ─── Footer ─── compare-page minimal ────────────────────────── */
+    footer{
+      border-top:1px solid var(--rule);
+      margin-top:48px;
+      padding:32px 22px 56px;
+      background:var(--bg);
+    }
+    footer .wrap{
+      max-width:var(--maxw); margin:0 auto;
+      display:flex; flex-direction:column; gap:14px;
+      font-size:12px; color:var(--ink-mute); line-height:1.5;
+    }
+    footer .row1{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:14px; }
+    footer .links{ display:flex; gap:18px; flex-wrap:wrap; }
+    footer .links a{ color:var(--ink-soft); }
+    footer .links a:hover{ color:var(--accent); text-decoration:none; }
+    footer .disclaim{ max-width:720px; }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    /* On narrow widths the 4-column table (label / XR / S25 FE / Δ)
+       collapses to a stacked card-per-row-group layout. The Δ column
+       hides on mobile; deltas surface inline below each value.
+       Choice: stack (not horizontal scroll) — reads cleaner with
+       the silhouette thumbnails staying intact at top.            */
+    @media (max-width: 740px){
+      :root{ --label-w:auto; }
+      .hero{ padding:44px 22px 20px; }
+      .matrix, .matrix thead, .matrix tbody, .matrix tr, .matrix td, .matrix th{
+        display:block;
+      }
+      .matrix thead{
+        position:sticky; top:44px; z-index:50;
+        background:var(--bg);
+        border-bottom:1px solid var(--rule);
+      }
+      .matrix thead tr{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:14px;
+        padding:14px 0 12px;
+      }
+      .matrix thead th{
+        position:static;
+        padding:0; border:none;
+      }
+      .matrix thead th.col-label,
+      .matrix thead th.col-delta{ display:none; }
+      .colhead svg{ width:48px; height:90px; }
+      .colhead .name{ font-size:17px; }
+
+      .matrix tbody tr.group{ padding:24px 0 8px; border:none; }
+      .matrix tbody tr.group td{ padding:24px 0 8px; border:none; background:transparent; }
+      .matrix tbody tr.group td h2{ font-size:20px; }
+
+      .matrix tbody tr.spec{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        column-gap:14px;
+        padding:10px 0;
+        border-bottom:1px solid var(--rule);
+        background:transparent;
+      }
+      .matrix tbody tr.spec:nth-of-type(odd){ background:transparent; }
+      .matrix tbody tr.spec th.row-label{
+        grid-column:1 / -1;
+        padding:0 0 6px;
+        border:none;
+        background:transparent;
+        font-size:13px;
+      }
+      .matrix tbody tr.spec td{
+        padding:0;
+        border:none;
+        background:transparent;
+        text-align:left;
+        font-size:14px;
+      }
+      .matrix tbody tr.spec td.cell-val::before{
+        content:attr(data-prefix);
+        display:block;
+        font-family:"SF Mono","Menlo",monospace;
+        font-size:11px; color:var(--ink-mute);
+        margin-bottom:2px; letter-spacing:0;
+      }
+      .matrix tbody tr.spec td.cell-delta{
+        grid-column:1 / -1;
+        margin-top:6px;
+        font-size:12px;
+        text-align:left;
+      }
+      .matrix tbody tr.spec td.cell-delta::before{
+        content:"Δ ";
+        color:var(--ink-mute);
+      }
+      .barpair .v{ font-size:11px; }
+      .timeline{ height:64px; }
+    }
+
+    @media (min-width: 741px){
+      /* hide the mobile-only data-prefix labels on desktop */
+      .matrix tbody td.cell-val::before{ content:none; }
+    }
+
+    /* prefers-reduced-motion — page has no motion, but make explicit */
+    @media (prefers-reduced-motion: reduce){
+      *,*::before,*::after{ animation:none !important; transition:none !important; }
+    }
+
+    /* print — keep things black & legible */
+    @media print{
+      .topbar, footer{ display:none; }
+      .matrix thead th{ position:static; }
+      body{ background:#fff; color:#000; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TOP BAR — Apple compare-page nav stub
+       ═══════════════════════════════════════════════════════════════ -->
+  <nav class="topbar" aria-label="Page navigation">
+    <div class="topbar-inner">
+      <span class="crumb">Compare</span>
+      <div class="right">
+        <a href="index.html" aria-label="Back to all formats">All formats</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       HERO — one word
+       ═══════════════════════════════════════════════════════════════ -->
+  <header class="hero">
+    <h1>Compare.</h1>
+    <p class="sub">iPhone XR and Galaxy S25 FE, side by side.</p>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MATRIX — the whole page
+       ═══════════════════════════════════════════════════════════════ -->
+  <main class="matrix-wrap">
+    <table class="matrix" aria-describedby="matrix-note">
+      <caption>Specification comparison of iPhone XR and Samsung Galaxy S25 FE</caption>
+
+      <thead>
+        <tr>
+          <th scope="col" class="col-label"><span class="num">Specification</span></th>
+
+          <th scope="col">
+            <div class="colhead">
+              <!-- iPhone XR silhouette · lifted from blueprint §01 front elevation,
+                   strokes recolored black on light bg, callouts/dimensions stripped -->
+              <svg viewBox="80 88 100 200" role="img" aria-label="iPhone XR silhouette" fill="none" stroke="#1D1D1F" stroke-width="1" vector-effect="non-scaling-stroke">
+                <!-- body -->
+                <rect x="80" y="88" width="100" height="200" rx="14" ry="14"/>
+                <!-- bezel -->
+                <rect x="84" y="92" width="92" height="192" rx="11" ry="11" stroke="#86868B" stroke-width="0.6"/>
+                <!-- screen with notch trapezoid -->
+                <path d="M 96 96 L 116 96 L 116 100 Q 116 104 120 104 L 140 104 Q 144 104 144 100 L 144 96 L 164 96 A 8 8 0 0 1 172 104 L 172 272 A 8 8 0 0 1 164 280 L 96 280 A 8 8 0 0 1 88 272 L 88 104 A 8 8 0 0 1 96 96 Z"/>
+                <!-- notch inside detail -->
+                <circle cx="138" cy="100" r="1" stroke="#86868B" stroke-width="0.6"/>
+                <circle cx="122" cy="100" r="1" stroke="#86868B" stroke-width="0.6"/>
+                <rect x="127" y="99.2" width="6" height="1.6" rx="0.8" stroke="#86868B" stroke-width="0.6"/>
+                <!-- right power btn -->
+                <line x1="180" y1="138" x2="180" y2="158"/>
+                <!-- left mute + vol -->
+                <rect x="78.5" y="120" width="3" height="7"/>
+                <line x1="80" y1="136" x2="80" y2="150"/>
+                <line x1="80" y1="156" x2="80" y2="170"/>
+                <!-- bottom port -->
+                <rect x="120" y="292" width="20" height="3" rx="1.5" y="285"/>
+              </svg>
+              <span class="name">iPhone XR</span>
+              <span class="year">2018</span>
+            </div>
+          </th>
+
+          <th scope="col">
+            <div class="colhead">
+              <!-- Galaxy S25 FE silhouette · lifted from blueprint §01 -->
+              <svg viewBox="78 82 104 219" role="img" aria-label="Galaxy S25 FE silhouette" fill="none" stroke="#1D1D1F" stroke-width="1" vector-effect="non-scaling-stroke">
+                <!-- body (flatter rails rx=10) -->
+                <rect x="78" y="82" width="104" height="219" rx="10" ry="10"/>
+                <!-- bezel -->
+                <rect x="82" y="86" width="96" height="211" rx="9" ry="9" stroke="#86868B" stroke-width="0.6"/>
+                <!-- screen -->
+                <rect x="86" y="90" width="88" height="203" rx="7" ry="7"/>
+                <!-- punch-hole -->
+                <circle cx="130" cy="100" r="2.4"/>
+                <!-- in-display FP (dashed) -->
+                <circle cx="130" cy="248" r="9" stroke="#86868B" stroke-dasharray="2 2" stroke-width="0.6"/>
+                <!-- right side btns -->
+                <rect x="181.5" y="138" width="2" height="22" rx="1"/>
+                <rect x="181.5" y="168" width="2" height="14" rx="1"/>
+                <!-- bottom port -->
+                <rect x="120" y="305" width="20" height="3" rx="1.5"/>
+              </svg>
+              <span class="name">Galaxy S25 FE</span>
+              <span class="year">2025</span>
+            </div>
+          </th>
+
+          <th scope="col" class="col-delta" id="delta-head">
+            <span class="num">Δ</span>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <!-- ═══ GROUP 01 · DIMENSIONS ═══════════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Dimensions.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">Height</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">150.9 mm</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">161.3 mm</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">+10.4 mm</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Width</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">75.7 mm</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">76.6 mm</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">+0.9 mm</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Depth</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">8.3 mm</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">7.4 mm</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">−0.9 mm</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Weight</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">194 g</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">~210 g</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">+16 g · +8 %</td>
+        </tr>
+
+        <!-- ═══ GROUP 02 · DISPLAY ══════════════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Display.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">Size</th>
+          <td class="cell-val" data-prefix="iPhone XR">6.1"</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">6.7"</td>
+          <td class="cell-delta" aria-describedby="delta-head">+0.6"</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Type</th>
+          <td class="cell-val" data-prefix="iPhone XR">LCD</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">AMOLED 2X</td>
+          <td class="cell-delta" aria-describedby="delta-head">LCD → AMOLED</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Resolution</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">1792 × 828</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">2340 × 1080</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">+ pixels</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Pixel density</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">326 ppi</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">~385 ppi</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">+59 ppi · +18 %</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Refresh rate</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">60 Hz</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">120 Hz adaptive</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">2×</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">HDR</th>
+          <td class="cell-val" data-prefix="iPhone XR">None</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">HDR10+</td>
+          <td class="cell-delta" aria-describedby="delta-head">+ HDR10+</td>
+        </tr>
+
+        <!-- ═══ GROUP 03 · CHIP ═════════════════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Chip.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">SoC</th>
+          <td class="cell-val" data-prefix="iPhone XR">Apple A12 Bionic</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">Exynos 2400e</td>
+          <td class="cell-delta" aria-describedby="delta-head">platform shift</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Process</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">7 nm</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">4 nm</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">7 nm → 4 nm</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Architecture</th>
+          <td class="cell-val" data-prefix="iPhone XR">6C CPU · 4C GPU</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">10C CPU · Xclipse GPU</td>
+          <td class="cell-delta" aria-describedby="delta-head">+4 CPU cores</td>
+        </tr>
+
+        <!-- ═══ GROUP 04 · MEMORY ═══════════════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Memory.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">RAM</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">3 GB</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">8 GB LPDDR5X</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">+5 GB · 2.67×</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Storage</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">64 / 128 / 256 GB</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">128 / 256 / 512 GB</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">2× max · UFS 4.0</td>
+        </tr>
+
+        <!-- ═══ GROUP 05 · CAMERA SYSTEM ════════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Camera system.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">Rear</th>
+          <td class="cell-val" data-prefix="iPhone XR">12 MP wide f/1.8 OIS · single lens</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">50 MP wide f/1.8 OIS · 12 MP UW f/2.2 · 8 MP 3× tele OIS</td>
+          <td class="cell-delta" aria-describedby="delta-head">1 → 3 lenses · +38 MP main</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Front</th>
+          <td class="cell-val" data-prefix="iPhone XR">7 MP f/2.2 · TrueDepth</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">12 MP f/2.2 · punch-hole</td>
+          <td class="cell-delta" aria-describedby="delta-head">+5 MP · notch → cutout</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Video</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">4K @ 60 fps</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">8K @ 30 fps · 4K @ 60 fps</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">+ 8K capture</td>
+        </tr>
+
+        <!-- ═══ GROUP 06 · BATTERY AND POWER ════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Battery and power.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">Capacity</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">2942 mAh</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">4900 mAh</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">+1958 mAh · +66 %</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Wired</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">18 W</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">45 W</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">2.5×</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Wireless</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">7.5 W Qi</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">15 W Qi · reverse wireless</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">2× · + reverse</td>
+        </tr>
+
+        <!-- ═══ GROUP 07 · CONNECTIVITY ═════════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Connectivity.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">Cellular</th>
+          <td class="cell-val" data-prefix="iPhone XR">4G LTE</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">5G sub-6</td>
+          <td class="cell-delta" aria-describedby="delta-head">4G → 5G</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Wi-Fi</th>
+          <td class="cell-val" data-prefix="iPhone XR">Wi-Fi 5</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">Wi-Fi 6E</td>
+          <td class="cell-delta" aria-describedby="delta-head">+ 6 GHz band</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Bluetooth</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">5.0</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">5.3</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">5.0 → 5.3</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">NFC</th>
+          <td class="cell-val" data-prefix="iPhone XR">Apple Pay only</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">Open NFC</td>
+          <td class="cell-delta" aria-describedby="delta-head">+ open NFC</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">UWB</th>
+          <td class="cell-val" data-prefix="iPhone XR">None</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">Ultra-wideband</td>
+          <td class="cell-delta" aria-describedby="delta-head">+ UWB</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Port</th>
+          <td class="cell-val" data-prefix="iPhone XR">Lightning</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">USB-C</td>
+          <td class="cell-delta" aria-describedby="delta-head">Lightning → USB-C</td>
+        </tr>
+
+        <!-- ═══ GROUP 08 · AUTHENTICATION ═══════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Authentication.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">Face</th>
+          <td class="cell-val" data-prefix="iPhone XR">Face ID · structured IR</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">2D face</td>
+          <td class="cell-delta" aria-describedby="delta-head">IR depth → 2D</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Fingerprint</th>
+          <td class="cell-val" data-prefix="iPhone XR">None</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">Ultrasonic in-display</td>
+          <td class="cell-delta" aria-describedby="delta-head">+ fingerprint</td>
+        </tr>
+
+        <!-- ═══ GROUP 09 · OPERATING SYSTEM ═════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Operating system.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">OS at launch</th>
+          <td class="cell-val" data-prefix="iPhone XR">iOS 12</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">One UI 7 · Android 15</td>
+          <td class="cell-delta" aria-describedby="delta-head">iOS → Android</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Update commitment</th>
+          <td class="cell-val" data-prefix="iPhone XR">~6 yrs · iOS 12 → 18</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">7 yrs OS</td>
+          <td class="cell-delta" aria-describedby="delta-head">+1 yr</td>
+        </tr>
+
+        <!-- ═══ GROUP 10 · INGRESS PROTECTION ═══════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Ingress protection.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">Rating</th>
+          <td class="cell-val" data-prefix="iPhone XR">IP67</td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE">IP68</td>
+          <td class="cell-delta" aria-describedby="delta-head">IP67 → IP68</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Submersion</th>
+          <td class="cell-val" data-prefix="iPhone XR"><span class="num">1 m · 30 min</span></td>
+          <td class="cell-val" data-prefix="Galaxy S25 FE"><span class="num">1.5 m · 30 min</span></td>
+          <td class="cell-delta" aria-describedby="delta-head">+0.5 m</td>
+        </tr>
+
+        <!-- ═══ GROUP 11 · CAPABILITY DELTAS ════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Capability deltas.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">RAM scale</th>
+          <td colspan="2" class="cell-val">
+            <div class="barpair">
+              <div>
+                <div class="v">iPhone XR · 3 GB</div>
+                <div class="bar a"><i style="width:37.5%"></i></div>
+              </div>
+              <div>
+                <div class="v">Galaxy S25 FE · 8 GB</div>
+                <div class="bar b"><i style="width:100%"></i></div>
+              </div>
+            </div>
+          </td>
+          <td class="cell-delta" aria-describedby="delta-head">× 2.67</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Battery scale</th>
+          <td colspan="2" class="cell-val">
+            <div class="barpair">
+              <div>
+                <div class="v">iPhone XR · 2942 mAh</div>
+                <div class="bar a"><i style="width:60.04%"></i></div>
+              </div>
+              <div>
+                <div class="v">Galaxy S25 FE · 4900 mAh</div>
+                <div class="bar b"><i style="width:100%"></i></div>
+              </div>
+            </div>
+          </td>
+          <td class="cell-delta" aria-describedby="delta-head">+ 1958 mAh</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Refresh scale</th>
+          <td colspan="2" class="cell-val">
+            <div class="barpair">
+              <div>
+                <div class="v">iPhone XR · 60 Hz</div>
+                <div class="bar a"><i style="width:50%"></i></div>
+              </div>
+              <div>
+                <div class="v">Galaxy S25 FE · 120 Hz</div>
+                <div class="bar b"><i style="width:100%"></i></div>
+              </div>
+            </div>
+          </td>
+          <td class="cell-delta" aria-describedby="delta-head">× 2</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Wired charging scale</th>
+          <td colspan="2" class="cell-val">
+            <div class="barpair">
+              <div>
+                <div class="v">iPhone XR · 18 W</div>
+                <div class="bar a"><i style="width:40%"></i></div>
+              </div>
+              <div>
+                <div class="v">Galaxy S25 FE · 45 W</div>
+                <div class="bar b"><i style="width:100%"></i></div>
+              </div>
+            </div>
+          </td>
+          <td class="cell-delta" aria-describedby="delta-head">× 2.5</td>
+        </tr>
+        <tr class="spec">
+          <th scope="row" class="row-label">Process node scale</th>
+          <td colspan="2" class="cell-val">
+            <div class="barpair">
+              <div>
+                <div class="v">iPhone XR · 7 nm</div>
+                <div class="bar a"><i style="width:100%"></i></div>
+              </div>
+              <div>
+                <div class="v">Galaxy S25 FE · 4 nm</div>
+                <div class="bar b"><i style="width:57.14%"></i></div>
+              </div>
+            </div>
+          </td>
+          <td class="cell-delta" aria-describedby="delta-head">7 → 4 nm</td>
+        </tr>
+
+        <!-- ═══ GROUP 12 · OWNERSHIP SPAN ═══════════════════════════ -->
+        <tr class="group"><td colspan="4"><h2>Ownership span.</h2></td></tr>
+
+        <tr class="spec">
+          <th scope="row" class="row-label">Timeline · 2018 → 2025</th>
+          <td colspan="2" class="cell-val">
+            <!-- 8 years on the axis: 2018 → 2026.
+                 XR primary: 2018-Q4 → 2025-Q4   (~88%)
+                 S25 FE primary: 2025-Q4 → ongoing (~12%, dashed right edge implied) -->
+            <div class="timeline" role="img" aria-label="iPhone XR primary 2018 to 2025, Galaxy S25 FE primary 2025 onward">
+              <div class="axis"></div>
+              <div class="tick" style="left:0%"><span>2018</span></div>
+              <div class="tick" style="left:25%"><span>2020</span></div>
+              <div class="tick" style="left:50%"><span>2022</span></div>
+              <div class="tick" style="left:75%"><span>2024</span></div>
+              <div class="tick" style="left:100%"><span>2026</span></div>
+              <div class="seg a" style="left:0%; width:87.5%;">
+                <span class="lbl">iPhone XR · primary</span>
+              </div>
+              <div class="seg b" style="left:87.5%; width:12.5%;">
+                <span class="lbl">S25 FE · primary</span>
+              </div>
+            </div>
+          </td>
+          <td class="cell-delta" aria-describedby="delta-head">7 yrs</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <p id="matrix-note" class="matrix-note">
+      Δ column lists the directional change from iPhone XR (2018) to Galaxy S25 FE (2025).
+      Informational, not a benchmark.
+    </p>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="wrap">
+      <div class="row1">
+        <div class="links">
+          <a href="index.html">&larr; all formats</a>
+          <a href="blueprint.html">Blueprint</a>
+        </div>
+        <span class="mono" aria-label="Document date">2026&#8209;05&#8209;17</span>
+      </div>
+      <p class="disclaim">
+        Figures sourced from manufacturer datasheets. Values for iPhone XR reflect launch-era
+        specification. Values for Galaxy S25 FE reflect publicly listed configuration. No editorial,
+        no score.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

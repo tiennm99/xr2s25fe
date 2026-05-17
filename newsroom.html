@@ -1,0 +1,1464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>After seven years, the device under my fingers changed. — Personal Newsroom</title>
+<meta name="description" content="A long-form note on a personal device handover, from iPhone XR (2018) to Samsung Galaxy S25 FE (2025). Specifications, context, and a single animated figure." />
+<style>
+  /* ─── tokens ────────────────────────────────────────────────────── */
+  :root {
+    --paper:   #FFFFFF;
+    --ink:     #1D1D1F;
+    --ink-2:   #4D4D52;
+    --ink-3:   #86868B;
+    --rule:    #D2D2D7;
+    --rule-f:  #E8E8ED;
+    --link:    #0066CC;
+    --tint:    #F5F5F7;
+
+    --f-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+    --f-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    --col: 680px;
+    --col-wide: 880px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-sans);
+    font-size: 19px;
+    line-height: 1.7;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ─── layout ────────────────────────────────────────────────────── */
+  .wrap {
+    max-width: var(--col);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .wrap-wide {
+    max-width: var(--col-wide);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* article body paragraphs */
+  article p {
+    margin: 0 0 1.2em;
+    color: var(--ink);
+  }
+  article p + p { margin-top: 0; }
+
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ─── hero ──────────────────────────────────────────────────────── */
+  header.masthead {
+    padding: 88px 0 24px;
+    border-bottom: 1px solid var(--rule-f);
+  }
+  .kicker {
+    font-family: var(--f-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    margin: 0 0 28px;
+  }
+  h1.headline {
+    margin: 0 0 24px;
+    font-family: var(--f-sans);
+    font-size: clamp(32px, 5.4vw, 48px);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.022em;
+    color: var(--ink);
+  }
+  .byline {
+    margin: 0 0 18px;
+    font-size: 14px;
+    color: var(--ink-3);
+    letter-spacing: 0.01em;
+  }
+  .byline strong { font-weight: 500; color: var(--ink-2); }
+  .byline time { color: var(--ink-3); }
+  .dek {
+    margin: 0 0 24px;
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--ink-3);
+    max-width: 60ch;
+  }
+
+  /* ─── article shell ────────────────────────────────────────────── */
+  article.story { padding: 48px 0 24px; }
+  article.story > .wrap > p:first-of-type::first-letter {
+    /* small drop cap on opening paragraph */
+    font-family: var(--f-sans);
+    font-size: 3.2em;
+    font-weight: 500;
+    line-height: 0.92;
+    float: left;
+    margin: 0.06em 0.08em 0 -0.02em;
+    color: var(--ink);
+  }
+
+  h2.section-head {
+    margin: 56px 0 22px;
+    font-family: var(--f-sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+  }
+  h2.section-head .num {
+    display: inline-block;
+    margin-right: 12px;
+    font-family: var(--f-mono);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  /* ─── figures ──────────────────────────────────────────────────── */
+  figure {
+    margin: 40px auto;
+    padding: 0;
+  }
+  figcaption {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-3);
+    text-align: left;
+    max-width: var(--col);
+  }
+  figcaption strong {
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+
+  /* mono used for inline spec values only */
+  .mono {
+    font-family: var(--f-mono);
+    font-size: 0.84em;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  /* ─── §00 plotter (preserved) ──────────────────────────────────── */
+  :root {
+    --plot-dur: 11.5s;
+    --plot-ease: cubic-bezier(0.65, 0, 0.35, 1);
+    --plot-b-delay: 5.6s;
+    --plot-b-dur: 4s;
+  }
+  .figure-plotter { margin: 56px auto 40px; }
+  .replot-stage {
+    background: var(--tint);
+    border-radius: 16px;
+    padding: 28px 24px 20px;
+    position: relative;
+  }
+  .replot-svg {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    margin: 0 auto;
+  }
+  .replot-svg .drw      { stroke: var(--ink);   fill: none; stroke-width: 1.2; }
+  .replot-svg .drw-soft { stroke: var(--ink-3); fill: none; stroke-width: 1; }
+
+  .replot-replay {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-3);
+    font-family: var(--f-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 10px 14px;
+    min-height: 40px;
+    min-width: 40px;
+    cursor: pointer;
+    border-radius: 980px;
+    text-transform: uppercase;
+    transition: color 120ms ease, border-color 120ms ease;
+  }
+  .replot-replay:hover { color: var(--ink); border-color: var(--ink-3); }
+  .replot-replay:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+    color: var(--ink);
+    border-color: var(--ink-3);
+  }
+
+  .replot-label {
+    margin: 16px 4px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 14px;
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  .replot-label .rp-label { grid-row: 1; grid-column: 1; opacity: 0; }
+
+  /* every stroked unit element starts hidden (dashoffset = full length) */
+  .replot-svg .rp-unit path,
+  .replot-svg .rp-unit line,
+  .replot-svg .rp-unit rect,
+  .replot-svg .rp-unit circle,
+  .replot-svg .rp-unit polyline {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+
+  /* tier stagger */
+  .replot-svg .rp-tier-0 { --stagger: 0s; }
+  .replot-svg .rp-tier-1 { --stagger: 0.6s; }
+  .replot-svg .rp-tier-2 { --stagger: 1.2s; }
+  .replot-svg .rp-tier-3 { --stagger: 1.8s; }
+
+  /* Unit A: draw → hold → erase */
+  .replot.is-playing .rp-unit-a path,
+  .replot.is-playing .rp-unit-a line,
+  .replot.is-playing .rp-unit-a rect,
+  .replot.is-playing .rp-unit-a circle,
+  .replot.is-playing .rp-unit-a polyline {
+    animation: plot-and-erase var(--plot-dur) var(--plot-ease) forwards;
+    animation-delay: var(--stagger, 0s);
+  }
+  /* Unit B: draws once after delay, holds drawn */
+  .replot.is-playing .rp-unit-b path,
+  .replot.is-playing .rp-unit-b line,
+  .replot.is-playing .rp-unit-b rect,
+  .replot.is-playing .rp-unit-b circle,
+  .replot.is-playing .rp-unit-b polyline {
+    animation: plot-only var(--plot-b-dur) var(--plot-ease) forwards;
+    animation-delay: calc(var(--plot-b-delay) + var(--stagger, 0s));
+  }
+  .replot.is-playing .rp-label-a { animation: label-a var(--plot-dur) linear forwards; }
+  .replot.is-playing .rp-label-b { animation: label-b var(--plot-dur) linear forwards; }
+
+  @keyframes plot-and-erase {
+    0%   { stroke-dashoffset: 100; }
+    35%  { stroke-dashoffset: 0; }
+    45%  { stroke-dashoffset: 0; }
+    68%  { stroke-dashoffset: 100; }
+    100% { stroke-dashoffset: 100; }
+  }
+  @keyframes plot-only {
+    from { stroke-dashoffset: 100; }
+    to   { stroke-dashoffset: 0; }
+  }
+  @keyframes label-a {
+    0% { opacity: 0; } 3% { opacity: 1; } 45% { opacity: 1; } 52% { opacity: 0; } 100% { opacity: 0; }
+  }
+  @keyframes label-b {
+    0% { opacity: 0; } 48% { opacity: 0; } 55% { opacity: 1; } 100% { opacity: 1; }
+  }
+
+  /* reduced-motion: static, Unit B drawn only */
+  @media (prefers-reduced-motion: reduce) {
+    .replot .rp-unit-a { display: none; }
+    .replot-svg .rp-unit-b path,
+    .replot-svg .rp-unit-b line,
+    .replot-svg .rp-unit-b rect,
+    .replot-svg .rp-unit-b circle,
+    .replot-svg .rp-unit-b polyline {
+      stroke-dasharray: none;
+      stroke-dashoffset: 0;
+    }
+    .replot-replay { display: none; }
+    .rp-label-a { display: none; }
+    .rp-label-b { opacity: 1; }
+  }
+  .replot.reduced-motion .rp-unit-a { display: none; }
+  .replot.reduced-motion .rp-unit-b path,
+  .replot.reduced-motion .rp-unit-b line,
+  .replot.reduced-motion .rp-unit-b rect,
+  .replot.reduced-motion .rp-unit-b circle,
+  .replot.reduced-motion .rp-unit-b polyline {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+  .replot.reduced-motion .replot-replay { display: none; }
+  .replot.reduced-motion .rp-label-a { display: none; }
+  .replot.reduced-motion .rp-label-b { opacity: 1; }
+
+  /* ─── elevation figures (newsroom style) ───────────────────────── */
+  .figure-elev {
+    margin: 48px auto;
+  }
+  .figure-elev .frame-box {
+    background: var(--tint);
+    border-radius: 16px;
+    padding: 32px 24px 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .figure-elev svg {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    display: block;
+  }
+  .figure-elev .drw      { stroke: var(--ink);   fill: none; stroke-width: 1.2; }
+  .figure-elev .drw-soft { stroke: var(--ink-3); fill: none; stroke-width: 1; }
+  .figure-elev .drw-dash { stroke: var(--ink-3); fill: none; stroke-width: 0.8; stroke-dasharray: 3 3; }
+  .figure-elev .lbl      { font-family: var(--f-mono); font-size: 9px; fill: var(--ink-2); letter-spacing: 0.06em; }
+  .figure-elev .lbl-sm   { font-family: var(--f-mono); font-size: 8px; fill: var(--ink-3); letter-spacing: 0.06em; }
+
+  /* ─── inline delta mini bar-chart ──────────────────────────────── */
+  .delta-inline {
+    margin: 28px auto;
+    max-width: 480px;
+    border-top: 1px solid var(--rule-f);
+    border-bottom: 1px solid var(--rule-f);
+    padding: 18px 0;
+  }
+  .delta-inline .lab {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .delta-inline .lab .factor {
+    font-family: var(--f-mono);
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: -0.01em;
+  }
+  .delta-inline .row {
+    display: grid;
+    grid-template-columns: 60px 1fr 64px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .delta-inline .row:last-child { margin-bottom: 0; }
+  .delta-inline .row .v {
+    font-family: var(--f-mono);
+    color: var(--ink);
+    font-size: 13px;
+  }
+  .delta-inline .row .name {
+    font-size: 12px;
+    color: var(--ink-3);
+    text-align: right;
+    letter-spacing: 0.04em;
+  }
+  .delta-inline .bar {
+    height: 6px;
+    background: var(--rule-f);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .delta-inline .bar i {
+    display: block;
+    height: 100%;
+    background: var(--ink-3);
+    border-radius: 3px;
+  }
+  .delta-inline .row.b .bar i { background: var(--ink); }
+
+  /* ─── architecture flow ───────────────────────────────────────── */
+  .arch-figure { margin: 48px auto; }
+  .arch-scroll {
+    overflow-x: auto;
+    background: var(--tint);
+    border-radius: 16px;
+    padding: 28px 20px;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+  .arch-scroll svg {
+    min-width: 820px;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .arch-figure .drw      { stroke: var(--ink);   fill: none; stroke-width: 1.2; }
+  .arch-figure .drw-soft { stroke: var(--ink-3); fill: none; stroke-width: 1; }
+  .arch-figure .drw-dash { stroke: var(--ink-3); fill: none; stroke-width: 1; stroke-dasharray: 4 3; }
+  .arch-figure .drw-acc  { stroke: var(--link);  fill: none; stroke-width: 1.2; }
+  .arch-figure .block    { fill: #FFFFFF; stroke: var(--ink); stroke-width: 1; }
+  .arch-figure .lbl      { font-family: var(--f-mono); font-size: 11px; fill: var(--ink); letter-spacing: 0.05em; }
+  .arch-figure .lbl-sm   { font-family: var(--f-mono); font-size: 9.5px; fill: var(--ink-3); letter-spacing: 0.05em; }
+
+  /* ─── timeline strip ──────────────────────────────────────────── */
+  .timeline-strip {
+    margin: 40px auto;
+    padding: 28px 0;
+    border-top: 1px solid var(--rule-f);
+    border-bottom: 1px solid var(--rule-f);
+  }
+  .tl-bar {
+    position: relative;
+    height: 2px;
+    background: var(--rule);
+    margin: 36px 8px 18px;
+  }
+  .tl-bar .lifespan {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+  .tl-bar .dot {
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    margin-top: -5px;
+    background: var(--ink);
+    border-radius: 50%;
+  }
+  .tl-bar .dot.mid { background: var(--link); }
+  .tl-callouts {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  .tl-callouts .item { text-align: center; }
+  .tl-callouts .item.left { text-align: left; }
+  .tl-callouts .item.right { text-align: right; }
+  .tl-callouts .yr {
+    display: block;
+    color: var(--ink);
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .tl-callouts .lbl {
+    display: block;
+    color: var(--ink-3);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ─── appendix ────────────────────────────────────────────────── */
+  details.appendix {
+    margin: 64px auto 40px;
+    border-top: 1px solid var(--rule);
+    padding-top: 32px;
+  }
+  details.appendix summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 12px 0;
+    font-family: var(--f-sans);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--link);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  details.appendix summary::-webkit-details-marker { display: none; }
+  details.appendix summary::before {
+    content: "+";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 16px;
+    font-weight: 400;
+    color: var(--link);
+    transition: transform 200ms ease;
+  }
+  details.appendix[open] summary::before { content: "−"; }
+  details.appendix summary:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+  details.appendix .preamble {
+    margin: 12px 0 24px;
+    font-size: 14px;
+    color: var(--ink-3);
+    line-height: 1.55;
+  }
+
+  table.spec {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  table.spec thead th {
+    text-align: left;
+    font-family: var(--f-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    padding: 12px 12px;
+    border-bottom: 1px solid var(--rule);
+    background: transparent;
+  }
+  table.spec tbody td {
+    padding: 12px 12px;
+    border-bottom: 1px solid var(--rule-f);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  table.spec tbody tr:last-child td { border-bottom: 0; }
+  table.spec td.cat {
+    font-family: var(--f-sans);
+    font-size: 13px;
+    color: var(--ink-2);
+    font-weight: 500;
+    width: 22%;
+  }
+  table.spec td.col-a, table.spec td.col-b {
+    font-family: var(--f-mono);
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  table.spec td.col-a { color: var(--ink-2); }
+  table.spec td.delta {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--link);
+    white-space: nowrap;
+    width: 22%;
+  }
+
+  @media (max-width: 720px) {
+    table.spec, table.spec tbody, table.spec tr, table.spec td { display: block; }
+    table.spec thead { display: none; }
+    table.spec tbody tr {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--rule-f);
+    }
+    table.spec tbody tr:last-child { border-bottom: 0; }
+    table.spec td { padding: 4px 0; }
+    table.spec td.cat {
+      width: auto;
+      font-size: 14px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    table.spec td.col-a::before,
+    table.spec td.col-b::before,
+    table.spec td.delta::before {
+      content: attr(data-label);
+      color: var(--ink-3);
+      font-family: var(--f-sans);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 6px;
+    }
+  }
+
+  /* ─── footer ──────────────────────────────────────────────────── */
+  footer.colophon {
+    border-top: 1px solid var(--rule-f);
+    padding: 40px 0 64px;
+    margin-top: 48px;
+    font-size: 14px;
+    color: var(--ink-3);
+    line-height: 1.6;
+  }
+  footer.colophon .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  footer.colophon .meta { color: var(--ink-3); }
+  footer.colophon .meta strong { color: var(--ink-2); font-weight: 500; }
+  footer.colophon time { color: var(--ink-3); }
+  footer.colophon .back {
+    font-size: 14px;
+    color: var(--link);
+  }
+  footer.colophon .press {
+    margin: 0 0 12px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+
+  /* ─── responsive ──────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    body { font-size: 17px; }
+    header.masthead { padding: 56px 0 20px; }
+    h1.headline { font-size: 32px; line-height: 1.18; }
+    .dek { font-size: 18px; }
+    h2.section-head { font-size: 22px; margin-top: 44px; }
+    article.story > .wrap > p:first-of-type::first-letter {
+      font-size: 2.8em;
+    }
+    .replot-stage { padding: 18px 14px 14px; }
+    .replot-replay { font-size: 11px; padding: 8px 10px; top: 10px; right: 10px; }
+    .figure-elev .frame-box { padding: 22px 14px 14px; }
+    .delta-inline .row { grid-template-columns: 54px 1fr 56px; gap: 10px; }
+    .tl-callouts { font-size: 10.5px; gap: 8px; }
+    .tl-callouts .yr { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MASTHEAD / HERO — newsroom headline block
+       ═══════════════════════════════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="wrap">
+      <p class="kicker">PERSONAL · UPDATE · 2026</p>
+      <h1 class="headline">After seven years, the device under my fingers changed.</h1>
+      <p class="byline">By <strong>tiennm99</strong> &nbsp;·&nbsp; <time datetime="2026-05-17">May 17, 2026</time></p>
+      <p class="dek">A personal handover from iPhone XR to Samsung Galaxy S25 FE — documented dimension by dimension, with one animated figure and a full technical appendix.</p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       ARTICLE
+       ═══════════════════════════════════════════════════════════════ -->
+  <article class="story">
+
+    <!-- LEDE ──────────────────────────────────────────────────── -->
+    <div class="wrap">
+      <p>The iPhone XR shipped in October 2018. It was carried, used, and slowly worn down for seven years. In May 2026 it was replaced by a Samsung Galaxy S25 FE, which had launched the previous October. The two devices never met on a store shelf — they are separated by seven model-years, two operating systems, and the entire span of the 5G rollout. What follows is a record of the handover, drawn at the same scale and read row by row.</p>
+
+      <p>This note treats the change as a press release rather than a review. The figures below are orthographic, not photographic. Every specification has been lifted from the manufacturers' datasheets; the editorial column does not adjudicate which device is better. It only registers what changed.</p>
+    </div>
+
+    <!-- FIGURE 1 · §00 PLOTTER (only animation) ─────────────── -->
+    <div class="wrap-wide">
+      <figure class="figure-plotter replot">
+        <div class="replot-stage">
+          <button class="replot-replay" type="button" aria-label="Replay re-plot animation">↻ Replay</button>
+          <svg viewBox="0 0 640 420" class="replot-svg" role="img" aria-labelledby="replot-title replot-desc">
+            <title id="replot-title">Plot of iPhone XR followed by Galaxy S25 FE in the same blueprint frame</title>
+            <desc id="replot-desc">An animated technical plot. The outline of an iPhone XR is drawn, held briefly, then erased. The outline of a Samsung Galaxy S25 FE is then drawn in the same frame and held. Cycle length 11.5 seconds.</desc>
+
+            <!-- Unit A · iPhone XR · front geometry -->
+            <g class="rp-unit rp-unit-a" transform="translate(190 30)">
+              <rect class="drw rp-tier-0" pathLength="100" x="80" y="88" width="100" height="200" rx="14" ry="14" vector-effect="non-scaling-stroke"/>
+              <rect class="drw-soft rp-tier-1" pathLength="100" x="84" y="92" width="92" height="192" rx="11" ry="11" vector-effect="non-scaling-stroke"/>
+              <path class="drw rp-tier-1" pathLength="100" d="M 96 96 L 116 96 L 116 100 Q 116 104 120 104 L 140 104 Q 144 104 144 100 L 144 96 L 164 96 A 8 8 0 0 1 172 104 L 172 272 A 8 8 0 0 1 164 280 L 96 280 A 8 8 0 0 1 88 272 L 88 104 A 8 8 0 0 1 96 96 Z" vector-effect="non-scaling-stroke"/>
+              <path class="drw rp-tier-2" pathLength="100" d="M 116 96 L 116 100 Q 116 104 120 104 L 140 104 Q 144 104 144 100 L 144 96" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-2" pathLength="100" cx="138" cy="100" r="1"   vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-2" pathLength="100" cx="122" cy="100" r="1"   vector-effect="non-scaling-stroke"/>
+              <rect   class="drw-soft rp-tier-2" pathLength="100" x="127" y="99.2" width="6" height="1.6" rx="0.8" vector-effect="non-scaling-stroke"/>
+              <line class="drw rp-tier-3" pathLength="100" x1="180" y1="138" x2="180" y2="158" vector-effect="non-scaling-stroke"/>
+              <rect class="drw rp-tier-3" pathLength="100" x="78.5" y="120" width="3" height="7"  vector-effect="non-scaling-stroke"/>
+              <line class="drw rp-tier-3" pathLength="100" x1="80" y1="136" x2="80" y2="150" vector-effect="non-scaling-stroke"/>
+              <line class="drw rp-tier-3" pathLength="100" x1="80" y1="156" x2="80" y2="170" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="104" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="108" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="112" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+              <rect   class="drw      rp-tier-3" pathLength="100" x="120" y="292" width="20" height="3" rx="1.5" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="148" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="152" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="156" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+            </g>
+
+            <!-- Unit B · Galaxy S25 FE · front geometry -->
+            <g class="rp-unit rp-unit-b" transform="translate(190 20)">
+              <rect class="drw rp-tier-0" pathLength="100" x="78" y="82" width="104" height="219" rx="10" ry="10" vector-effect="non-scaling-stroke"/>
+              <rect class="drw-soft rp-tier-1" pathLength="100" x="82" y="86" width="96" height="211" rx="9" ry="9" vector-effect="non-scaling-stroke"/>
+              <rect class="drw rp-tier-1" pathLength="100" x="86" y="90" width="88" height="203" rx="7" ry="7" vector-effect="non-scaling-stroke"/>
+              <circle class="drw rp-tier-2" pathLength="100" cx="130" cy="100" r="2.4" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-2" pathLength="100" cx="130" cy="248" r="9" vector-effect="non-scaling-stroke"/>
+              <rect class="drw rp-tier-3" pathLength="100" x="181.5" y="138" width="2" height="22" rx="1" vector-effect="non-scaling-stroke"/>
+              <rect class="drw rp-tier-3" pathLength="100" x="181.5" y="168" width="2" height="14" rx="1" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="104" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="108" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="112" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+              <rect   class="drw      rp-tier-3" pathLength="100" x="120" y="305" width="20" height="3" rx="1.5" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="148" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="152" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+              <circle class="drw-soft rp-tier-3" pathLength="100" cx="156" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+            </g>
+          </svg>
+        </div>
+
+        <p class="replot-label">
+          <span class="rp-label rp-label-a">PLOTTING UNIT A · iPhone XR · 2018</span>
+          <span class="rp-label rp-label-b">PLOTTING UNIT B · Galaxy S25 FE · 2025</span>
+        </p>
+
+        <figcaption>
+          <strong>Figure 1.</strong> Plot, erase, re-plot. iPhone XR (Unit A) is drawn, erased, then Galaxy S25 FE (Unit B) is plotted in the same frame. 11.5-second cycle. With reduced-motion preference, only Unit B is shown, statically.
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- BRIEF HISTORY ─────────────────────────────────────────── -->
+    <div class="wrap">
+      <h2 class="section-head"><span class="num">01</span>A brief history of two outlines.</h2>
+
+      <p>The XR was Apple's high-volume budget iPhone of 2018. It carried the same A12 Bionic silicon as the iPhone XS, paired with a 6.1-inch LCD display, a single rear camera, and the notch that had been introduced by the iPhone X a year earlier. It launched at <span class="mono">$749</span> and remained on the official Apple Store for three years.</p>
+
+      <p>The Galaxy S25 FE is Samsung's 2025 entry in its "Fan Edition" line: a slightly de-specified flagship at a lower price. It ships with the Exynos 2400e at 4 nanometers, a 6.7-inch AMOLED 2X panel running at 120 Hz, and three discrete rear cameras with no shared island. It launched at roughly <span class="mono">$649</span> in October 2025.</p>
+
+      <p>Seven years separate the two outlines. The body grew taller and slightly narrower. The notch became a punch-hole. The Lightning port became USB-C. Memory tripled. The display doubled its refresh rate. The camera array tripled. The figures that follow draw each of these changes to scale.</p>
+    </div>
+
+    <!-- ELEVATIONS ────────────────────────────────────────────── -->
+    <div class="wrap">
+      <h2 class="section-head"><span class="num">02</span>Elevations, drawn at scale.</h2>
+
+      <p>Below are four orthographic figures — front and rear views of each device — rendered at the same 1:1 scale used in the technical blueprint. The XR's body is <span class="mono">150.9 × 75.7 × 8.3 mm</span>. The S25 FE's body is <span class="mono">161.3 × 76.6 × 7.4 mm</span>. The newer device is 10 millimeters taller, one millimeter wider, and almost a millimeter thinner.</p>
+    </div>
+
+    <!-- FIGURE 2 · XR FRONT -->
+    <div class="wrap">
+      <figure class="figure-elev">
+        <div class="frame-box">
+          <svg viewBox="0 0 260 360" role="img" aria-labelledby="xr-front-title xr-front-desc">
+            <title id="xr-front-title">iPhone XR front elevation, 150.9 × 75.7 mm</title>
+            <desc id="xr-front-desc">Front orthographic elevation of iPhone XR. Body 150.9 by 75.7 mm with 14 mm corner radius. Display: 6.1 inch LCD with top-center trapezoidal notch pendant. Bottom edge: Lightning port flanked by speaker and microphone grilles. Left edge: silent slider above volume up and volume down. Right edge: sleep/wake button.</desc>
+
+            <g class="dim-top">
+              <line class="drw-dash" x1="80" y1="42" x2="80" y2="78"/>
+              <line class="drw-dash" x1="180" y1="42" x2="180" y2="78"/>
+              <line class="drw-dash" x1="80" y1="54" x2="180" y2="54"/>
+            </g>
+            <text x="130" y="48" text-anchor="middle" class="lbl">75.7 mm</text>
+
+            <g class="dim-side">
+              <line class="drw-dash" x1="200" y1="88"  x2="236" y2="88"/>
+              <line class="drw-dash" x1="200" y1="288" x2="236" y2="288"/>
+              <line class="drw-dash" x1="218" y1="88"  x2="218" y2="288"/>
+            </g>
+            <text x="246" y="188" class="lbl" transform="rotate(90 246 188)" text-anchor="middle">150.9 mm</text>
+
+            <rect class="drw" x="80" y="88" width="100" height="200" rx="14" ry="14" vector-effect="non-scaling-stroke"/>
+            <rect class="drw-soft" x="84" y="92" width="92" height="192" rx="11" ry="11" vector-effect="non-scaling-stroke"/>
+            <path class="drw" d="M 96 96 L 116 96 L 116 100 Q 116 104 120 104 L 140 104 Q 144 104 144 100 L 144 96 L 164 96 A 8 8 0 0 1 172 104 L 172 272 A 8 8 0 0 1 164 280 L 96 280 A 8 8 0 0 1 88 272 L 88 104 A 8 8 0 0 1 96 96 Z" vector-effect="non-scaling-stroke"/>
+            <path class="drw" d="M 116 96 L 116 100 Q 116 104 120 104 L 140 104 Q 144 104 144 100 L 144 96" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="138" cy="100" r="1"   vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="122" cy="100" r="1"   vector-effect="non-scaling-stroke"/>
+            <rect   class="drw-soft" x="127" y="99.2" width="6" height="1.6" rx="0.8" vector-effect="non-scaling-stroke"/>
+
+            <line class="drw" x1="180" y1="138" x2="180" y2="158" vector-effect="non-scaling-stroke"/>
+            <rect class="drw" x="78.5" y="120" width="3" height="7"  vector-effect="non-scaling-stroke"/>
+            <line class="drw" x1="80" y1="136" x2="80" y2="150" vector-effect="non-scaling-stroke"/>
+            <line class="drw" x1="80" y1="156" x2="80" y2="170" vector-effect="non-scaling-stroke"/>
+
+            <circle class="drw-soft" cx="104" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="108" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="112" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+            <rect class="drw" x="120" y="292" width="20" height="3" rx="1.5" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="148" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="152" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="156" cy="294" r="0.6" vector-effect="non-scaling-stroke"/>
+
+            <g class="xr-callout-notch">
+              <line class="drw-dash" x1="144" y1="100" x2="196" y2="68" vector-effect="non-scaling-stroke"/>
+              <text x="198" y="66" class="lbl-sm">A · NOTCH · TRUEDEPTH</text>
+            </g>
+            <g class="xr-callout-port">
+              <line class="drw-dash" x1="130" y1="296" x2="200" y2="320" vector-effect="non-scaling-stroke"/>
+              <text x="202" y="320" class="lbl-sm">B · LIGHTNING</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption>
+          <strong>Figure 2.</strong> iPhone XR · front. Body <span class="mono">150.9 × 75.7 mm</span>, corner radius 14 mm. A trapezoidal notch pendant houses the TrueDepth camera array. Single sleep/wake button on the right; mute slider above the volume rocker on the left. Lightning port at the bottom edge.
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="wrap">
+      <p>The XR's front face is defined by the notch. Apple introduced the notch with the iPhone X in 2017; it persisted across the X family until the Dynamic Island arrived on the iPhone 14 Pro in 2022. By the time the XR was retired, the notch had become a generational marker.</p>
+    </div>
+
+    <!-- FIGURE 3 · S25 FE FRONT -->
+    <div class="wrap">
+      <figure class="figure-elev">
+        <div class="frame-box">
+          <svg viewBox="0 0 260 360" role="img" aria-labelledby="s25-front-title s25-front-desc">
+            <title id="s25-front-title">Galaxy S25 FE front elevation, 161.3 × 76.6 mm</title>
+            <desc id="s25-front-desc">Front orthographic elevation of Samsung Galaxy S25 FE. Body 161.3 by 76.6 mm with 10 mm corner radius. 6.7 inch AMOLED with top-center punch-hole front camera and ultrasonic in-display fingerprint sensor. Right edge: volume rocker above power.</desc>
+
+            <g class="dim-top">
+              <line class="drw-dash" x1="78"  y1="36" x2="78"  y2="72"/>
+              <line class="drw-dash" x1="182" y1="36" x2="182" y2="72"/>
+              <line class="drw-dash" x1="78"  y1="48" x2="182" y2="48"/>
+            </g>
+            <text x="130" y="42" text-anchor="middle" class="lbl">76.6 mm</text>
+
+            <g class="dim-side">
+              <line class="drw-dash" x1="202" y1="82"  x2="238" y2="82"/>
+              <line class="drw-dash" x1="202" y1="301" x2="238" y2="301"/>
+              <line class="drw-dash" x1="220" y1="82"  x2="220" y2="301"/>
+            </g>
+            <text x="248" y="192" class="lbl" transform="rotate(90 248 192)" text-anchor="middle">161.3 mm</text>
+
+            <rect class="drw" x="78" y="82" width="104" height="219" rx="10" ry="10" vector-effect="non-scaling-stroke"/>
+            <rect class="drw-soft" x="82" y="86" width="96" height="211" rx="9" ry="9" vector-effect="non-scaling-stroke"/>
+            <rect class="drw" x="86" y="90" width="88" height="203" rx="7" ry="7" vector-effect="non-scaling-stroke"/>
+
+            <circle class="drw" cx="130" cy="100" r="2.4" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-dash" cx="130" cy="248" r="9" vector-effect="non-scaling-stroke"/>
+            <text x="130" y="251" class="lbl-sm" text-anchor="middle">FP</text>
+
+            <rect class="drw" x="181.5" y="138" width="2" height="22" rx="1" vector-effect="non-scaling-stroke"/>
+            <rect class="drw" x="181.5" y="168" width="2" height="14" rx="1" vector-effect="non-scaling-stroke"/>
+
+            <circle class="drw-soft" cx="104" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="108" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="112" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+            <rect class="drw" x="120" y="305" width="20" height="3" rx="1.5" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="148" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="152" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="156" cy="307" r="0.6" vector-effect="non-scaling-stroke"/>
+
+            <g class="s25-callout-punch">
+              <line class="drw-dash" x1="130" y1="97" x2="196" y2="64" vector-effect="non-scaling-stroke"/>
+              <text x="198" y="62" class="lbl-sm">A · PUNCH-HOLE · 12 MP</text>
+            </g>
+            <g class="s25-callout-fp">
+              <line class="drw-dash" x1="120" y1="248" x2="44" y2="240" vector-effect="non-scaling-stroke"/>
+              <text x="42" y="238" class="lbl-sm" text-anchor="end">B · ULTRASONIC FP</text>
+            </g>
+            <g class="s25-callout-port">
+              <line class="drw-dash" x1="130" y1="309" x2="200" y2="332" vector-effect="non-scaling-stroke"/>
+              <text x="202" y="332" class="lbl-sm">C · USB-C</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption>
+          <strong>Figure 3.</strong> Galaxy S25 FE · front. Body <span class="mono">161.3 × 76.6 mm</span>, corner radius 10 mm and rails noticeably flatter than the XR. A single 2.4-mm punch-hole sits at the top of the AMOLED panel; an ultrasonic fingerprint sensor sits in the lower third, beneath the glass. USB-C at the bottom.
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="wrap">
+      <p>The transition from Lightning to USB-C was set in motion by a European Union directive in October 2022. Apple shipped the first USB-C iPhone — the iPhone 15 — in September 2023. The XR was never updated; it kept its Lightning port to the end. The S25 FE arrived with USB-C as standard, alongside DisplayPort Alt Mode over the same connector.</p>
+    </div>
+
+    <!-- FIGURE 4 · XR REAR -->
+    <div class="wrap">
+      <figure class="figure-elev">
+        <div class="frame-box">
+          <svg viewBox="0 0 260 360" role="img" aria-labelledby="xr-rear-title xr-rear-desc">
+            <title id="xr-rear-title">iPhone XR rear elevation, single-lens camera island</title>
+            <desc id="xr-rear-desc">Rear orthographic elevation of iPhone XR. Same 150.9 by 75.7 mm body. Single rounded-square camera island in upper-left containing one 12 megapixel wide lens with f/1.8 aperture and OIS, a quad-LED True Tone flash, and a microphone hole. Apple logo centered mid-body.</desc>
+
+            <g class="dim-top">
+              <line class="drw-dash" x1="80" y1="42" x2="80" y2="78"/>
+              <line class="drw-dash" x1="180" y1="42" x2="180" y2="78"/>
+              <line class="drw-dash" x1="80" y1="54" x2="180" y2="54"/>
+            </g>
+            <text x="130" y="48" text-anchor="middle" class="lbl">75.7 mm</text>
+
+            <rect class="drw" x="80" y="88" width="100" height="200" rx="14" ry="14" vector-effect="non-scaling-stroke"/>
+            <rect class="drw-soft" x="83" y="91" width="94" height="194" rx="12" ry="12" vector-effect="non-scaling-stroke"/>
+
+            <rect class="drw" x="92" y="100" width="22" height="22" rx="4" ry="4" vector-effect="non-scaling-stroke"/>
+            <circle class="drw" cx="100" cy="108" r="5" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="100" cy="108" r="2.2" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="108" cy="116" r="1.4" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="120" cy="108" r="0.6" vector-effect="non-scaling-stroke"/>
+
+            <circle class="drw-soft" cx="130" cy="188" r="6" vector-effect="non-scaling-stroke"/>
+            <text x="130" y="260" text-anchor="middle" class="lbl-sm" style="letter-spacing:0.18em;">iPhone</text>
+
+            <line class="drw" x1="180" y1="138" x2="180" y2="158" vector-effect="non-scaling-stroke"/>
+            <rect class="drw" x="78.5" y="120" width="3" height="7"  vector-effect="non-scaling-stroke"/>
+            <line class="drw" x1="80" y1="136" x2="80" y2="150" vector-effect="non-scaling-stroke"/>
+            <line class="drw" x1="80" y1="156" x2="80" y2="170" vector-effect="non-scaling-stroke"/>
+
+            <g class="xr-rear-callout-lens">
+              <line class="drw-dash" x1="105" y1="108" x2="200" y2="80" vector-effect="non-scaling-stroke"/>
+              <text x="202" y="78" class="lbl-sm">A · 12 MP WIDE f/1.8</text>
+            </g>
+            <g class="xr-rear-callout-island">
+              <line class="drw-dash" x1="114" y1="100" x2="200" y2="118" vector-effect="non-scaling-stroke"/>
+              <text x="202" y="120" class="lbl-sm">B · ISLAND · 22 × 22 mm</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption>
+          <strong>Figure 4.</strong> iPhone XR · rear. A single 12-megapixel wide-angle lens at <span class="mono">f/1.8</span> sits inside a rounded-square island in the upper-left, alongside a quad-LED True Tone flash and a microphone hole. The Apple wordmark is centered. Video tops out at 4K, 60 fps.
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- FIGURE 5 · S25 FE REAR -->
+    <div class="wrap">
+      <figure class="figure-elev">
+        <div class="frame-box">
+          <svg viewBox="0 0 260 360" role="img" aria-labelledby="s25-rear-title s25-rear-desc">
+            <title id="s25-rear-title">Galaxy S25 FE rear elevation, three vertically-stacked discrete camera rings</title>
+            <desc id="s25-rear-desc">Rear orthographic elevation of Samsung Galaxy S25 FE. Same 161.3 by 76.6 mm body. Three discrete camera rings stacked vertically along the upper-left, no shared camera island. Top ring 8 megapixel 3x telephoto. Middle ring 50 megapixel wide f/1.8. Bottom ring 12 megapixel ultrawide. SAMSUNG wordmark centered in lower third.</desc>
+
+            <g class="dim-top">
+              <line class="drw-dash" x1="78"  y1="36" x2="78"  y2="72"/>
+              <line class="drw-dash" x1="182" y1="36" x2="182" y2="72"/>
+              <line class="drw-dash" x1="78"  y1="48" x2="182" y2="48"/>
+            </g>
+            <text x="130" y="42" text-anchor="middle" class="lbl">76.6 mm</text>
+
+            <rect class="drw" x="78" y="82" width="104" height="219" rx="10" ry="10" vector-effect="non-scaling-stroke"/>
+            <rect class="drw-soft" x="81" y="85" width="98" height="213" rx="8" ry="8" vector-effect="non-scaling-stroke"/>
+
+            <circle class="drw" cx="100" cy="110" r="6" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="100" cy="110" r="3" vector-effect="non-scaling-stroke"/>
+
+            <circle class="drw" cx="100" cy="130" r="7" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="100" cy="130" r="3.6" vector-effect="non-scaling-stroke"/>
+
+            <circle class="drw" cx="100" cy="150" r="6.5" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="100" cy="150" r="3.2" vector-effect="non-scaling-stroke"/>
+
+            <circle class="drw-soft" cx="118" cy="128" r="1.4" vector-effect="non-scaling-stroke"/>
+            <circle class="drw-soft" cx="118" cy="134" r="0.6" vector-effect="non-scaling-stroke"/>
+
+            <text x="130" y="282" text-anchor="middle" class="lbl-sm" style="letter-spacing:0.32em;">SAMSUNG</text>
+
+            <rect class="drw" x="181.5" y="138" width="2" height="22" rx="1" vector-effect="non-scaling-stroke"/>
+            <rect class="drw" x="181.5" y="168" width="2" height="14" rx="1" vector-effect="non-scaling-stroke"/>
+
+            <g class="s25-callout-top">
+              <line class="drw-dash" x1="106" y1="110" x2="200" y2="80" vector-effect="non-scaling-stroke"/>
+              <text x="202" y="78" class="lbl-sm">A · 8 MP 3× TELE</text>
+            </g>
+            <g class="s25-callout-mid">
+              <line class="drw-dash" x1="107" y1="130" x2="200" y2="130" vector-effect="non-scaling-stroke"/>
+              <text x="202" y="132" class="lbl-sm">B · 50 MP WIDE f/1.8</text>
+            </g>
+            <g class="s25-callout-bot">
+              <line class="drw-dash" x1="106" y1="150" x2="200" y2="180" vector-effect="non-scaling-stroke"/>
+              <text x="202" y="182" class="lbl-sm">C · 12 MP ULTRAWIDE</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption>
+          <strong>Figure 5.</strong> Galaxy S25 FE · rear. Three discrete camera rings sit directly on the back panel — telephoto at <span class="mono">8 MP, 3×</span>, wide at <span class="mono">50 MP f/1.8</span>, ultrawide at <span class="mono">12 MP</span> — with no shared island. Video tops out at 8K, 30 fps.
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="wrap">
+      <p>The XR shipped with one rear lens. The S25 FE ships with three. The main sensor's resolution rose from 12 to 50 megapixels — a 4.17× nominal jump, though pixel binning means the default capture is 12.5 MP. Video adds 8K capture at 30 fps, which neither device's preview screen can fully resolve in real time.</p>
+    </div>
+
+    <!-- DELTAS ────────────────────────────────────────────────── -->
+    <div class="wrap">
+      <h2 class="section-head"><span class="num">03</span>What changed, in numbers.</h2>
+
+      <p>Memory tripled. The display doubled its refresh rate. Wired charging more than doubled. Apple silicon shipped at 7 nanometers in 2018. The Samsung Exynos 2400e ships at 4 nanometers in 2025. The selection of deltas below is the editor's; the underlying matrix is preserved in the appendix at the foot of this page.</p>
+
+      <!-- delta · RAM -->
+      <div class="delta-inline" role="figure" aria-label="Memory delta">
+        <div class="lab"><span>Memory · RAM</span><span class="factor">× 2.67</span></div>
+        <div class="row a">
+          <span class="v">3 GB</span>
+          <div class="bar" aria-hidden="true"><i style="width:37.5%"></i></div>
+          <span class="name">XR</span>
+        </div>
+        <div class="row b">
+          <span class="v">8 GB</span>
+          <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+          <span class="name">S25 FE</span>
+        </div>
+      </div>
+
+      <p>Three gigabytes of RAM was generous in 2018. By 2025 it was a constraint — modern Android keeps eight gigabytes only modestly comfortable. The XR's memory was LPDDR4X; the S25 FE's is LPDDR5X, with materially higher peak bandwidth.</p>
+
+      <!-- delta · refresh -->
+      <div class="delta-inline" role="figure" aria-label="Display refresh delta">
+        <div class="lab"><span>Display · refresh</span><span class="factor">× 2</span></div>
+        <div class="row a">
+          <span class="v">60 Hz</span>
+          <div class="bar" aria-hidden="true"><i style="width:50%"></i></div>
+          <span class="name">XR</span>
+        </div>
+        <div class="row b">
+          <span class="v">120 Hz</span>
+          <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+          <span class="name">S25 FE</span>
+        </div>
+      </div>
+
+      <p>The XR ran its LCD panel at a fixed 60 Hz. The S25 FE's AMOLED 2X is adaptive between 1 Hz and 120 Hz, falling to the lower bound on static content to conserve battery. The perceived smoothness gap is the single most obvious daily difference.</p>
+
+      <!-- delta · battery -->
+      <div class="delta-inline" role="figure" aria-label="Battery capacity delta">
+        <div class="lab"><span>Battery · capacity</span><span class="factor">+ 1958 mAh</span></div>
+        <div class="row a">
+          <span class="v">2942</span>
+          <div class="bar" aria-hidden="true"><i style="width:60%"></i></div>
+          <span class="name">XR</span>
+        </div>
+        <div class="row b">
+          <span class="v">4900</span>
+          <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+          <span class="name">S25 FE</span>
+        </div>
+      </div>
+
+      <p>Battery capacity rose by 66 percent. Some of that capacity is absorbed by the brighter, faster display and the second cellular generation; some is left over. Wired charging rose from 18 to 45 watts; wireless from 7.5 to 15 watts, with reverse wireless added.</p>
+
+      <!-- delta · cameras count -->
+      <div class="delta-inline" role="figure" aria-label="Rear camera count delta">
+        <div class="lab"><span>Rear cameras · count</span><span class="factor">× 3</span></div>
+        <div class="row a">
+          <span class="v">1</span>
+          <div class="bar" aria-hidden="true"><i style="width:33.3%"></i></div>
+          <span class="name">XR</span>
+        </div>
+        <div class="row b">
+          <span class="v">3</span>
+          <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+          <span class="name">S25 FE</span>
+        </div>
+      </div>
+
+      <p>One lens became three. The added ultrawide and 3× telephoto change what kind of photograph the device can take, not just the resolution of the shot it already could.</p>
+
+      <!-- delta · main MP -->
+      <div class="delta-inline" role="figure" aria-label="Main sensor resolution delta">
+        <div class="lab"><span>Main sensor · resolution</span><span class="factor">× 4.17</span></div>
+        <div class="row a">
+          <span class="v">12 MP</span>
+          <div class="bar" aria-hidden="true"><i style="width:24%"></i></div>
+          <span class="name">XR</span>
+        </div>
+        <div class="row b">
+          <span class="v">50 MP</span>
+          <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+          <span class="name">S25 FE</span>
+        </div>
+      </div>
+
+      <!-- delta · process node -->
+      <div class="delta-inline" role="figure" aria-label="Process node delta">
+        <div class="lab"><span>Process node · SoC</span><span class="factor">7 → 4 nm</span></div>
+        <div class="row a">
+          <span class="v">7 nm</span>
+          <div class="bar" aria-hidden="true"><i style="width:57%"></i></div>
+          <span class="name">XR</span>
+        </div>
+        <div class="row b">
+          <span class="v">4 nm</span>
+          <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+          <span class="name">S25 FE</span>
+        </div>
+      </div>
+
+      <p>Apple silicon shipped at 7 nanometers in 2018. The Samsung Exynos 2400e ships at 4 nanometers in 2025. The CPU core count rose from six to ten. The GPU is Samsung's Xclipse, which is built on AMD RDNA architecture under license — itself a notable industry detail.</p>
+
+      <!-- delta · charging -->
+      <div class="delta-inline" role="figure" aria-label="Wired charging delta">
+        <div class="lab"><span>Charging · wired</span><span class="factor">× 2.5</span></div>
+        <div class="row a">
+          <span class="v">18 W</span>
+          <div class="bar" aria-hidden="true"><i style="width:40%"></i></div>
+          <span class="name">XR</span>
+        </div>
+        <div class="row b">
+          <span class="v">45 W</span>
+          <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+          <span class="name">S25 FE</span>
+        </div>
+      </div>
+
+      <!-- delta · cellular -->
+      <div class="delta-inline" role="figure" aria-label="Cellular generation delta">
+        <div class="lab"><span>Cellular · generation</span><span class="factor">4G → 5G</span></div>
+        <div class="row a">
+          <span class="v">4G</span>
+          <div class="bar" aria-hidden="true"><i style="width:55%"></i></div>
+          <span class="name">XR</span>
+        </div>
+        <div class="row b">
+          <span class="v">5G</span>
+          <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+          <span class="name">S25 FE</span>
+        </div>
+      </div>
+
+      <p>The XR launched as 5G was being defined. It will end its life having seen the entire first generation of 5G rollout from the outside. The S25 FE supports sub-6 GHz 5G alongside Wi-Fi 6E, Bluetooth 5.3, and ultra-wideband — three radios the older device does not have.</p>
+    </div>
+
+    <!-- ARCHITECTURE ──────────────────────────────────────────── -->
+    <div class="wrap">
+      <h2 class="section-head"><span class="num">04</span>The system, side by side.</h2>
+
+      <p>Below, the two devices are drawn as parallel system stacks. The left column is the iPhone XR; the right column is the Galaxy S25 FE. Each row pairs a subsystem — operating system, silicon, memory, authentication, port, radio, distribution — and names the delta in the centre channel. Where the figure is too wide for the column, it scrolls horizontally.</p>
+    </div>
+
+    <div class="wrap-wide">
+      <figure class="arch-figure">
+        <div class="arch-scroll">
+          <svg viewBox="0 0 1080 520" role="img" aria-labelledby="arch-title arch-desc">
+            <title id="arch-title">Architecture diagram showing migration from iOS / Apple ecosystem to Android / Samsung ecosystem</title>
+            <desc id="arch-desc">Side-by-side block diagram. Left column iPhone XR with iOS, A12 SoC, 3 GB memory, Face ID, Lightning, 4G LTE, and App Store distribution. Right column Galaxy S25 FE with One UI 7 on Android 15, Exynos 2400e, 8 GB memory, fingerprint plus face authentication, USB-C, 5G sub-6, and Play Store plus sideload distribution. Center channel labels each row delta.</desc>
+
+            <text x="20" y="22" class="lbl">SYSTEM SHIFT · 2018 → 2025</text>
+            <line x1="20" y1="30" x2="1060" y2="30" class="drw-soft"/>
+
+            <text x="120" y="58" text-anchor="middle" class="lbl">UNIT A · 2018 · CLOSED PLATFORM</text>
+            <text x="960" y="58" text-anchor="middle" class="lbl">UNIT B · 2025 · OPEN ANDROID</text>
+            <line x1="20" y1="70" x2="220" y2="70" class="drw-soft"/>
+            <line x1="860" y1="70" x2="1060" y2="70" class="drw-soft"/>
+
+            <!-- LEFT STACK -->
+            <rect class="block" x="20" y="90" width="200" height="46"/>
+            <text x="120" y="113" text-anchor="middle" class="lbl">OS · iOS 12 → 18</text>
+            <text x="120" y="127" text-anchor="middle" class="lbl-sm">CLOSED · ~6 YR SUPPORT</text>
+
+            <rect class="block" x="20" y="150" width="200" height="46"/>
+            <text x="120" y="173" text-anchor="middle" class="lbl">SoC · APPLE A12</text>
+            <text x="120" y="187" text-anchor="middle" class="lbl-sm">7 nm · 6C CPU</text>
+
+            <rect class="block" x="20" y="210" width="200" height="46"/>
+            <text x="120" y="233" text-anchor="middle" class="lbl">MEM · 3 GB</text>
+            <text x="120" y="247" text-anchor="middle" class="lbl-sm">LPDDR4X</text>
+
+            <rect class="block" x="20" y="270" width="200" height="46"/>
+            <text x="120" y="293" text-anchor="middle" class="lbl">AUTH · FACE ID</text>
+            <text x="120" y="307" text-anchor="middle" class="lbl-sm">STRUCTURED IR</text>
+
+            <rect class="block" x="20" y="330" width="200" height="46"/>
+            <text x="120" y="353" text-anchor="middle" class="lbl">I/O · LIGHTNING</text>
+            <text x="120" y="367" text-anchor="middle" class="lbl-sm">USB 2.0</text>
+
+            <rect class="block" x="20" y="390" width="200" height="46"/>
+            <text x="120" y="413" text-anchor="middle" class="lbl">RADIO · 4G LTE</text>
+            <text x="120" y="427" text-anchor="middle" class="lbl-sm">Wi-Fi 5 · BT 5.0</text>
+
+            <rect class="block" x="20" y="450" width="200" height="46"/>
+            <text x="120" y="473" text-anchor="middle" class="lbl">DIST · APP STORE</text>
+            <text x="120" y="487" text-anchor="middle" class="lbl-sm">SINGLE SOURCE</text>
+
+            <!-- RIGHT STACK -->
+            <rect class="block" x="860" y="90" width="200" height="46"/>
+            <text x="960" y="113" text-anchor="middle" class="lbl">OS · ONE UI 7 / ANDROID 15</text>
+            <text x="960" y="127" text-anchor="middle" class="lbl-sm">7-YR OS COMMITMENT</text>
+
+            <rect class="block" x="860" y="150" width="200" height="46"/>
+            <text x="960" y="173" text-anchor="middle" class="lbl">SoC · EXYNOS 2400e</text>
+            <text x="960" y="187" text-anchor="middle" class="lbl-sm">4 nm · 10C · XCLIPSE</text>
+
+            <rect class="block" x="860" y="210" width="200" height="46"/>
+            <text x="960" y="233" text-anchor="middle" class="lbl">MEM · 8 GB</text>
+            <text x="960" y="247" text-anchor="middle" class="lbl-sm">LPDDR5X</text>
+
+            <rect class="block" x="860" y="270" width="200" height="46"/>
+            <text x="960" y="293" text-anchor="middle" class="lbl">AUTH · FP + FACE</text>
+            <text x="960" y="307" text-anchor="middle" class="lbl-sm">ULTRASONIC IN-DISPLAY</text>
+
+            <rect class="block" x="860" y="330" width="200" height="46"/>
+            <text x="960" y="353" text-anchor="middle" class="lbl">I/O · USB-C</text>
+            <text x="960" y="367" text-anchor="middle" class="lbl-sm">USB 3.2 · DP ALT</text>
+
+            <rect class="block" x="860" y="390" width="200" height="46"/>
+            <text x="960" y="413" text-anchor="middle" class="lbl">RADIO · 5G SUB-6</text>
+            <text x="960" y="427" text-anchor="middle" class="lbl-sm">Wi-Fi 6E · BT 5.3 · UWB</text>
+
+            <rect class="block" x="860" y="450" width="200" height="46"/>
+            <text x="960" y="473" text-anchor="middle" class="lbl">DIST · PLAY + SIDELOAD</text>
+            <text x="960" y="487" text-anchor="middle" class="lbl-sm">OPEN · F-DROID · APK · ADB</text>
+
+            <!-- CENTER CHANNEL -->
+            <rect x="280" y="86" width="520" height="416" class="drw-soft" fill="none"/>
+            <line x1="280" y1="100" x2="800" y2="100" class="drw-dash"/>
+            <text x="540" y="96" text-anchor="middle" class="lbl">DELTA · MIGRATION CHANNEL</text>
+
+            <text x="290" y="118" class="lbl-sm">OS</text>
+            <line x1="220" y1="113" x2="280" y2="113" class="drw-acc"/>
+            <line x1="800" y1="113" x2="860" y2="113" class="drw-acc"/>
+            <text x="540" y="118" text-anchor="middle" class="lbl">iOS  ⟶  ANDROID</text>
+
+            <text x="290" y="178" class="lbl-sm">SoC</text>
+            <line x1="220" y1="173" x2="280" y2="173" class="drw-acc"/>
+            <line x1="800" y1="173" x2="860" y2="173" class="drw-acc"/>
+            <text x="540" y="178" text-anchor="middle" class="lbl">APPLE SILICON  ⟶  EXYNOS</text>
+
+            <text x="290" y="238" class="lbl-sm">MEM</text>
+            <line x1="220" y1="233" x2="280" y2="233" class="drw-acc"/>
+            <line x1="800" y1="233" x2="860" y2="233" class="drw-acc"/>
+            <text x="540" y="238" text-anchor="middle" class="lbl">3 GB  ⟶  8 GB  · +5 GB</text>
+
+            <text x="290" y="298" class="lbl-sm">AUTH</text>
+            <line x1="220" y1="293" x2="280" y2="293" class="drw-acc"/>
+            <line x1="800" y1="293" x2="860" y2="293" class="drw-acc"/>
+            <text x="540" y="298" text-anchor="middle" class="lbl">FACE ID  ⟶  FP + FACE</text>
+
+            <text x="290" y="358" class="lbl-sm">I/O</text>
+            <line x1="220" y1="353" x2="280" y2="353" class="drw-acc"/>
+            <line x1="800" y1="353" x2="860" y2="353" class="drw-acc"/>
+            <text x="540" y="358" text-anchor="middle" class="lbl">LIGHTNING  ⟶  USB-C</text>
+
+            <text x="290" y="418" class="lbl-sm">RF</text>
+            <line x1="220" y1="413" x2="280" y2="413" class="drw-acc"/>
+            <line x1="800" y1="413" x2="860" y2="413" class="drw-acc"/>
+            <text x="540" y="418" text-anchor="middle" class="lbl">4G LTE  ⟶  5G + UWB</text>
+
+            <text x="290" y="478" class="lbl-sm">DIST</text>
+            <line x1="220" y1="473" x2="280" y2="473" class="drw-acc"/>
+            <line x1="800" y1="473" x2="860" y2="473" class="drw-acc"/>
+            <text x="540" y="478" text-anchor="middle" class="lbl">CLOSED PLATFORM  ⟶  OPEN</text>
+          </svg>
+        </div>
+        <figcaption>
+          <strong>Figure 6.</strong> System shift across seven subsystems. The delta in the centre channel names, not measures, each transition. On narrow viewports the diagram scrolls horizontally.
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="wrap">
+      <p>The single most consequential shift is not visible in any specification: the operating system. Moving from iOS to Android changes the social graph the device connects to, the application binaries the user has paid for, the default cloud, and the model of distribution itself. The XR is sandboxed and single-source by design. The S25 FE accepts sideloaded APKs, alternative app stores, and ADB connections out of the box.</p>
+    </div>
+
+    <!-- TIMELINE STRIP ────────────────────────────────────────── -->
+    <div class="wrap">
+      <h2 class="section-head"><span class="num">05</span>Seven years on one line.</h2>
+
+      <div class="timeline-strip">
+        <div class="tl-bar" aria-hidden="true">
+          <span class="lifespan"></span>
+          <span class="dot" style="left:0%"></span>
+          <span class="dot mid" style="left:88%"></span>
+          <span class="dot" style="left:100%"></span>
+        </div>
+        <div class="tl-callouts">
+          <div class="item left">
+            <span class="yr">Oct 2018</span>
+            <span class="lbl">XR · launch</span>
+          </div>
+          <div class="item">
+            <span class="yr">Oct 2025</span>
+            <span class="lbl">S25 FE · generation</span>
+          </div>
+          <div class="item right">
+            <span class="yr">May 2026</span>
+            <span class="lbl">Upgrade · handover</span>
+          </div>
+        </div>
+      </div>
+
+      <p>Between the two endpoints the world's mobile networks rolled out 5G, the European Union mandated USB-C on portable electronics, on-device large language models became commodity, and the iPhone notch was replaced twice. The XR received its final supported operating system, iOS 18, in 2024. The S25 FE arrived with a seven-year operating-system commitment from Samsung — the longest such guarantee available on Android at the time of writing.</p>
+    </div>
+
+    <!-- CLOSING ─────────────────────────────────────────────── -->
+    <div class="wrap">
+      <h2 class="section-head"><span class="num">06</span>The handover.</h2>
+
+      <p>The XR is not retired. It is set aside. It will keep its iOS 18 install and remain a backup device — a calculator, a music player, an Apple-only mailbox. Its battery still holds; its display still shows photographs at 326 pixels per inch; its single rear lens still focuses. The handover is to a different machine, not to a better one. The figures above record what is different.</p>
+
+      <p>The full technical specification is preserved below, as an appendix.</p>
+
+      <!-- APPENDIX ─────────────────────────────────────────── -->
+      <details class="appendix">
+        <summary>Full technical specifications</summary>
+        <p class="preamble">All figures sourced from manufacturer datasheets and verified spec pages. The Δ column is informational, not a benchmark.</p>
+
+        <table class="spec">
+          <thead>
+            <tr>
+              <th scope="col">Subsystem</th>
+              <th scope="col">iPhone XR · 2018</th>
+              <th scope="col">Galaxy S25 FE · 2025</th>
+              <th scope="col">Δ Delta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cat">Display</td>
+              <td class="col-a" data-label="XR · 2018">6.1" LCD · 1792×828 · 326 ppi · 60 Hz</td>
+              <td class="col-b" data-label="S25 FE · 2025">6.7" AMOLED 2X · 2340×1080 · 120 Hz adaptive · HDR10+</td>
+              <td class="delta" data-label="Δ">+0.6" · 2× refresh · LCD → AMOLED</td>
+            </tr>
+            <tr>
+              <td class="cat">Pixel density</td>
+              <td class="col-a" data-label="XR · 2018">326 ppi</td>
+              <td class="col-b" data-label="S25 FE · 2025">~385 ppi</td>
+              <td class="delta" data-label="Δ">+59 ppi · +18 %</td>
+            </tr>
+            <tr>
+              <td class="cat">SoC</td>
+              <td class="col-a" data-label="XR · 2018">Apple A12 Bionic · 7 nm · 6C CPU / 4C GPU</td>
+              <td class="col-b" data-label="S25 FE · 2025">Exynos 2400e · 4 nm · 10C CPU / Xclipse GPU</td>
+              <td class="delta" data-label="Δ">7 nm → 4 nm · +4 CPU cores</td>
+            </tr>
+            <tr>
+              <td class="cat">Memory</td>
+              <td class="col-a" data-label="XR · 2018">3 GB</td>
+              <td class="col-b" data-label="S25 FE · 2025">8 GB LPDDR5X</td>
+              <td class="delta" data-label="Δ">+5 GB · 2.67×</td>
+            </tr>
+            <tr>
+              <td class="cat">Storage</td>
+              <td class="col-a" data-label="XR · 2018">64 / 128 / 256 GB</td>
+              <td class="col-b" data-label="S25 FE · 2025">128 / 256 / 512 GB · UFS 4.0</td>
+              <td class="delta" data-label="Δ">2× max · UFS 4.0</td>
+            </tr>
+            <tr>
+              <td class="cat">Rear camera</td>
+              <td class="col-a" data-label="XR · 2018">12 MP wide f/1.8 OIS · single lens</td>
+              <td class="col-b" data-label="S25 FE · 2025">50 MP wide f/1.8 OIS · 12 MP UW f/2.2 · 8 MP 3× tele OIS</td>
+              <td class="delta" data-label="Δ">1 → 3 lenses · +38 MP main</td>
+            </tr>
+            <tr>
+              <td class="cat">Front camera</td>
+              <td class="col-a" data-label="XR · 2018">7 MP f/2.2 · TrueDepth</td>
+              <td class="col-b" data-label="S25 FE · 2025">12 MP f/2.2 · punch-hole</td>
+              <td class="delta" data-label="Δ">+5 MP · notch → cutout</td>
+            </tr>
+            <tr>
+              <td class="cat">Video</td>
+              <td class="col-a" data-label="XR · 2018">4K @ 60 fps</td>
+              <td class="col-b" data-label="S25 FE · 2025">8K @ 30 fps · 4K @ 60 fps</td>
+              <td class="delta" data-label="Δ">+ 8K capture</td>
+            </tr>
+            <tr>
+              <td class="cat">Battery</td>
+              <td class="col-a" data-label="XR · 2018">2942 mAh</td>
+              <td class="col-b" data-label="S25 FE · 2025">4900 mAh</td>
+              <td class="delta" data-label="Δ">+1958 mAh · +66 %</td>
+            </tr>
+            <tr>
+              <td class="cat">Charging</td>
+              <td class="col-a" data-label="XR · 2018">Lightning · 18 W wired · 7.5 W Qi</td>
+              <td class="col-b" data-label="S25 FE · 2025">USB-C · 45 W wired · 15 W Qi · reverse wireless</td>
+              <td class="delta" data-label="Δ">2.5× wired · 2× wireless</td>
+            </tr>
+            <tr>
+              <td class="cat">Connectivity</td>
+              <td class="col-a" data-label="XR · 2018">4G LTE · Wi-Fi 5 · BT 5.0</td>
+              <td class="col-b" data-label="S25 FE · 2025">5G sub-6 · Wi-Fi 6E · BT 5.3 · NFC · UWB</td>
+              <td class="delta" data-label="Δ">4G → 5G · + UWB</td>
+            </tr>
+            <tr>
+              <td class="cat">Authentication</td>
+              <td class="col-a" data-label="XR · 2018">Face ID · structured IR</td>
+              <td class="col-b" data-label="S25 FE · 2025">Ultrasonic in-display FP · 2D face</td>
+              <td class="delta" data-label="Δ">IR depth → ultrasonic</td>
+            </tr>
+            <tr>
+              <td class="cat">Operating system</td>
+              <td class="col-a" data-label="XR · 2018">iOS 12 → iOS 18 · ~6 yrs support</td>
+              <td class="col-b" data-label="S25 FE · 2025">One UI 7 / Android 15 · 7-yr OS commitment</td>
+              <td class="delta" data-label="Δ">platform shift · iOS → Android</td>
+            </tr>
+            <tr>
+              <td class="cat">Ingress</td>
+              <td class="col-a" data-label="XR · 2018">IP67 · 1 m · 30 min</td>
+              <td class="col-b" data-label="S25 FE · 2025">IP68 · 1.5 m · 30 min</td>
+              <td class="delta" data-label="Δ">IP67 → IP68</td>
+            </tr>
+            <tr>
+              <td class="cat">Weight</td>
+              <td class="col-a" data-label="XR · 2018">194 g</td>
+              <td class="col-b" data-label="S25 FE · 2025">~210 g</td>
+              <td class="delta" data-label="Δ">+16 g · +8 %</td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+    </div>
+
+  </article>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FOOTER · newsroom colophon
+       ═══════════════════════════════════════════════════════════════ -->
+  <footer class="colophon">
+    <div class="wrap">
+      <p class="press">Press contact</p>
+      <div class="row">
+        <span class="meta"><strong>tiennm99</strong> &nbsp;·&nbsp; <a href="https://github.com/tiennm99">github.com/tiennm99</a></span>
+        <time datetime="2026-05-17">2026-05-17</time>
+        <a class="back" href="index.html">← all formats</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCRIPT · plotter IIFE (only animation)
+       ═══════════════════════════════════════════════════════════════ -->
+  <script>
+    (function () {
+      var section = document.querySelector('.replot');
+      if (!section) return;
+      var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (mq && mq.matches) {
+        section.classList.add('reduced-motion');
+        return;
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              section.classList.add('is-playing');
+              obs.unobserve(section);
+            }
+          });
+        }, { threshold: 0.4 });
+        io.observe(section);
+      } else {
+        section.classList.add('is-playing');
+      }
+      var replay = section.querySelector('.replot-replay');
+      if (replay) {
+        replay.addEventListener('click', function () {
+          section.classList.remove('is-playing');
+          /* force reflow so animations restart */
+          void section.offsetWidth;
+          section.classList.add('is-playing');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

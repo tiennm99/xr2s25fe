@@ -6,9 +6,9 @@ Personal upgrade datasheet — seven-year device gap, Apple to Samsung, rendered
 
 ## What
 
-A single-page upgrade record documenting the hardware delta between an iPhone XR (Oct 2018) and a Samsung Galaxy S25 FE (2025). Not a review. Not a recommendation. A datasheet — the kind you'd produce if you were filing a component change order and needed to justify every dimension that changed.
+A personal upgrade record documenting the hardware delta between an iPhone XR (Oct 2018) and a Samsung Galaxy S25 FE (2025). Not a review. Not a recommendation. A datasheet — the kind you'd produce if you were filing a component change order and needed to justify every dimension that changed.
 
-Rendered as one static `index.html`. No framework, no build pipeline, no server. Open it and it works.
+Rendered **six different ways**. Same facts, same SVG geometry — six document traditions. `index.html` is a selector that opens any of the six. Each format is a self-contained static HTML file. No framework, no build pipeline, no server.
 
 ---
 
@@ -32,7 +32,7 @@ The page exists to map those deltas precisely — not to editorialize about whic
 | Build | None |
 | Dependencies | None |
 
-The entire page ships as one file. Total external requests: 1 (Google Fonts CDN).
+Each format is one file. Total external requests per page: 1 (Google Fonts CDN) or 0 (the Apple-style formats lean on system SF Pro and ship without web fonts).
 
 ---
 
@@ -55,13 +55,19 @@ python3 -m http.server 8080
 
 ---
 
-## Sections
+## Formats
 
-- **Elevations** — front/side/back orthographic outlines of both devices, annotated with key dimensions
-- **Spec Matrix** — side-by-side table across 20+ hardware fields
-- **Capability Deltas** — visual delta bars showing magnitude of change per category
-- **Architecture** — ecosystem migration diagram: iOS / Apple stack → Android / Samsung stack across OS, memory, auth, I/O, radio, distribution
-- **Timeline** — annotated product-line timeline from 2018 to 2025, marking the upgrade point
+| File | Format | Archetype |
+|------|--------|-----------|
+| `index.html` | Selector hub | — |
+| `blueprint.html` | Engineering datasheet | architectural elevation drawing (origin) |
+| `cupertino.html` | Cupertino Edition | apple developer-docs / HIG |
+| `newsroom.html` | Newsroom Long-Read | apple.com/newsroom editorial |
+| `keynote.html` | Keynote Spec Sheet | apple product page (full-bleed long-scroll) |
+| `compare.html` | Compare-Page Purist | apple.com/shop/buy-iphone/compare |
+| `diptych.html` | Two-Tone Diptych | vertical split, 2018-vs-2025 |
+
+Each format contains the same five logical sections — Elevations, Spec Matrix, Capability Deltas, Architecture, Timeline — restyled per its source tradition. The §00 plot-erase-replot animation is preserved in every format except `compare.html` (compare pages don't animate) and demoted in `newsroom.html` (single article-figure).
 
 ---
 
