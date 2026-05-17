@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Device Evolution // 2018 → 2025</title>
+<meta name="description" content="Technical blueprint comparing iPhone XR (2018) to Samsung Galaxy S25 FE (2025) — a personal device evolution datasheet." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ─── tokens ────────────────────────────────────────────────────── */
+  :root {
+    --paper:        #FAFAF7;
+    --paper-2:      #F3F2EC;
+    --rule:         #1A1A1A;
+    --rule-soft:    #C9C7BD;
+    --rule-faint:   #E4E2D7;
+    --ink:          #1A1A1A;
+    --ink-2:        #4A4A46;
+    --ink-3:        #7A7972;
+    --accent:       #3D5A6C;     /* muted steel-blue */
+    --accent-soft:  #DCE2E6;
+    --accent-tint:  #EEF1F3;
+    --grid:         rgba(26,26,26,0.045);
+
+    --f-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --f-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
+
+    --w: 1280px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-sans);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 400;
+    /* faint blueprint grid */
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+  }
+
+  /* ─── layout primitives ─────────────────────────────────────────── */
+  .frame {
+    max-width: var(--w);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  @media (max-width: 640px) {
+    .frame { padding: 0 18px; }
+    body { font-size: 14px; }
+  }
+
+  section { padding: 72px 0; border-top: 1px solid var(--rule); position: relative; }
+  section:first-of-type { border-top: 0; }
+  @media (max-width: 640px) { section { padding: 48px 0; } }
+
+  /* section header strip */
+  .sec-hd {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: end;
+    gap: 24px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 14px;
+  }
+  .sec-hd .num {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  .sec-hd h2 {
+    margin: 0;
+    font-family: var(--f-sans);
+    font-weight: 500;
+    font-size: clamp(20px, 2.6vw, 28px);
+    letter-spacing: -0.01em;
+  }
+  .sec-hd .tag {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  @media (max-width: 640px) {
+    .sec-hd { grid-template-columns: 1fr; gap: 4px; }
+    .sec-hd .tag { display: none; }
+  }
+
+  .mono { font-family: var(--f-mono); }
+  .small { font-size: 12px; }
+  .micro { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--ink-3); text-transform: uppercase; }
+  .rule-h { height: 1px; background: var(--rule); border: 0; }
+  .rule-soft { height: 1px; background: var(--rule-soft); border: 0; }
+  .accent { color: var(--accent); }
+
+  /* ─── hero / title block ────────────────────────────────────────── */
+  .hero { padding-top: 56px; }
+  .titleblock {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: 1fr 320px;
+  }
+  .tb-main { padding: 36px 36px 28px; border-right: 1px solid var(--rule); }
+  .tb-side { display: grid; grid-template-rows: repeat(4, 1fr); }
+  .tb-cell {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--rule);
+    display: flex; flex-direction: column; justify-content: center;
+    min-height: 56px;
+  }
+  .tb-cell:last-child { border-bottom: 0; }
+  .tb-cell .k { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.12em; color: var(--ink-3); text-transform: uppercase; }
+  .tb-cell .v { font-family: var(--f-mono); font-size: 13px; color: var(--ink); margin-top: 2px; }
+
+  .crumb {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .crumb span:not(:last-child)::after { content: "/"; margin-left: 14px; color: var(--rule-soft); }
+
+  h1 {
+    margin: 0;
+    font-family: var(--f-sans);
+    font-weight: 500;
+    font-size: clamp(34px, 6vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+  h1 .arrow { font-family: var(--f-mono); font-weight: 400; color: var(--accent); padding: 0 6px; }
+  .subt {
+    margin-top: 20px;
+    max-width: 56ch;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  .scale-bar {
+    margin-top: 28px;
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.08em;
+  }
+  .scale-bar .ticks { display: flex; align-items: end; gap: 0; }
+  .scale-bar .ticks i { display: block; width: 12px; height: 6px; border-left: 1px solid var(--ink); }
+  .scale-bar .ticks i.big { height: 10px; }
+
+  @media (max-width: 820px) {
+    .titleblock { grid-template-columns: 1fr; }
+    .tb-main { border-right: 0; border-bottom: 1px solid var(--rule); padding: 26px 22px; }
+    .tb-side { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+    .tb-cell { border-right: 1px solid var(--rule); }
+    .tb-cell:nth-child(2n) { border-right: 0; }
+  }
+
+  /* ─── silhouettes / elevation ──────────────────────────────────── */
+  .elev-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .elev-cell { padding: 32px 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; }
+  .elev-cell:last-child { border-right: 0; }
+  .elev-cell h3 {
+    margin: 0 0 4px;
+    font-family: var(--f-sans);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .elev-cell .meta { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; }
+  .elev-art { display: flex; justify-content: center; padding: 24px 0 8px; }
+  .elev-art svg { width: 100%; max-width: 280px; height: auto; }
+  .elev-foot {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px dashed var(--rule-soft);
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+  }
+  .elev-foot .kv { display: flex; flex-direction: column; }
+  .elev-foot .kv .k { font-family: var(--f-mono); font-size: 9.5px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .elev-foot .kv .v { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); margin-top: 2px; }
+  @media (max-width: 720px) {
+    .elev-grid { grid-template-columns: 1fr; }
+    .elev-cell { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .elev-cell:last-child { border-bottom: 0; }
+  }
+
+  /* SVG drawing tokens */
+  .drw { stroke: var(--ink); fill: none; stroke-width: 1.2; }
+  .drw-soft { stroke: var(--ink-3); fill: none; stroke-width: 1; }
+  .drw-dash { stroke: var(--ink-3); fill: none; stroke-width: 0.8; stroke-dasharray: 3 3; }
+  .drw-fill { fill: var(--paper-2); stroke: var(--ink); stroke-width: 1.2; }
+  .drw-acc { stroke: var(--accent); fill: none; stroke-width: 1.2; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: var(--ink-2); letter-spacing: 0.06em; }
+  .lbl-sm { font-family: 'JetBrains Mono', monospace; font-size: 8px; fill: var(--ink-3); letter-spacing: 0.06em; }
+
+  /* ─── comparison matrix ─────────────────────────────────────────── */
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .matrix thead th {
+    text-align: left;
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-2);
+  }
+  .matrix tbody td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--rule-faint);
+    vertical-align: top;
+  }
+  .matrix tbody tr:last-child td { border-bottom: 0; }
+  .matrix td.cat {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    width: 18%;
+    white-space: nowrap;
+  }
+  .matrix td.col-a, .matrix td.col-b {
+    width: 32%;
+    font-family: var(--f-mono);
+    font-size: 12.5px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .matrix td.col-a { color: var(--ink-2); }
+  .matrix td.delta {
+    width: 18%;
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .matrix td.delta.flat { color: var(--ink-3); }
+
+  @media (max-width: 720px) {
+    .matrix, .matrix tbody, .matrix tr, .matrix td { display: block; }
+    .matrix thead { display: none; }
+    .matrix tbody tr {
+      border-bottom: 1px solid var(--rule);
+      padding: 14px 0;
+    }
+    .matrix tbody tr:last-child { border-bottom: 0; }
+    .matrix td { width: 100% !important; padding: 4px 18px; border: 0; }
+    .matrix td.cat { padding-top: 14px; padding-bottom: 6px; }
+    .matrix td.col-a::before { content: "XR — "; color: var(--ink-3); }
+    .matrix td.col-b::before { content: "S25 FE — "; color: var(--ink-3); }
+    .matrix td.delta::before { content: "Δ "; color: var(--ink-3); }
+  }
+
+  /* ─── delta bars ────────────────────────────────────────────────── */
+  .delta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .delta-cell {
+    padding: 24px 26px 22px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .delta-cell:nth-child(2n) { border-right: 0; }
+  .delta-cell:nth-last-child(-n+2) { border-bottom: 0; }
+  .delta-cell .lab {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .delta-cell .name {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  .delta-cell .factor {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--accent);
+  }
+  .delta-row {
+    display: grid;
+    grid-template-columns: 56px 1fr 56px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .delta-row:last-child { margin-bottom: 0; }
+  .delta-row .v {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .delta-row .v.r { text-align: right; }
+  .delta-row .bar {
+    height: 8px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule-soft);
+    position: relative;
+  }
+  .delta-row .bar i {
+    display: block;
+    height: 100%;
+    background: var(--ink);
+  }
+  .delta-row.b .bar i { background: var(--accent); }
+  .delta-row .bar .tick {
+    position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--rule-soft);
+  }
+  @media (max-width: 720px) {
+    .delta-grid { grid-template-columns: 1fr; }
+    .delta-cell { border-right: 0; }
+    .delta-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+    .delta-cell:last-child { border-bottom: 0; }
+  }
+
+  /* ─── architecture diagram ──────────────────────────────────────── */
+  .arch-wrap {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 28px 28px 18px;
+  }
+  .arch-wrap svg { width: 100%; height: auto; display: block; }
+  .arch-legend {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--rule-soft);
+    display: flex; flex-wrap: wrap; gap: 18px 32px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--ink-2);
+    letter-spacing: 0.06em;
+  }
+  .arch-legend .key { display: inline-flex; align-items: center; gap: 8px; }
+  .arch-legend .swatch { width: 22px; height: 10px; border: 1px solid var(--ink); background: var(--paper-2); }
+  .arch-legend .swatch.acc { background: var(--accent-tint); border-color: var(--accent); }
+  .arch-legend .swatch.line { background: var(--paper); border: 0; border-top: 1.5px dashed var(--ink-3); height: 0; }
+
+  /* ─── timeline ─────────────────────────────────────────────────── */
+  .tl {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 36px 36px 28px;
+    overflow-x: auto;
+  }
+  .tl-svg-wrap { min-width: 720px; }
+  .tl svg { width: 100%; height: auto; display: block; }
+
+  /* ─── footer ───────────────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 28px 0 36px;
+    margin-top: 24px;
+  }
+  .ft-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .ft-grid .col .k { color: var(--ink-3); }
+  .ft-grid .col .v { color: var(--ink); display: block; margin-top: 4px; letter-spacing: 0.06em; text-transform: none; font-size: 12px; }
+  @media (max-width: 640px) { .ft-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* corner registration marks (subtle) */
+  .reg { position: fixed; width: 14px; height: 14px; pointer-events: none; color: var(--ink); opacity: 0.35; }
+  .reg::before, .reg::after { content: ""; position: absolute; background: currentColor; }
+  .reg::before { left: 50%; top: 0; bottom: 0; width: 1px; margin-left: -0.5px; }
+  .reg::after { top: 50%; left: 0; right: 0; height: 1px; margin-top: -0.5px; }
+  .reg.tl { top: 14px; left: 14px; }
+  .reg.tr { top: 14px; right: 14px; }
+  .reg.bl { bottom: 14px; left: 14px; }
+  .reg.br { bottom: 14px; right: 14px; }
+  @media (max-width: 720px) { .reg { display: none; } }
+
+  /* utility */
+  .stack-sm > * + * { margin-top: 8px; }
+  .lead { font-size: 16px; color: var(--ink-2); max-width: 64ch; }
+
+</style>
+</head>
+<body>
+  <span class="reg tl" aria-hidden="true"></span>
+  <span class="reg tr" aria-hidden="true"></span>
+  <span class="reg bl" aria-hidden="true"></span>
+  <span class="reg br" aria-hidden="true"></span>
+
+  <main class="frame">
+
+    <!-- ─── HERO ─────────────────────────────────────────────────── -->
+    <section class="hero" aria-labelledby="title">
+      <div class="crumb" aria-label="document path">
+        <span>Personal</span><span>Devices</span><span>Evolution</span><span>Rev A — 2026.05</span>
+      </div>
+
+      <div class="titleblock" role="group" aria-label="title block">
+        <div class="tb-main">
+          <h1 id="title">Device Evolution <span class="arrow">//</span> 2018 <span class="arrow">→</span> 2025</h1>
+          <p class="subt">A side-by-side technical sheet documenting the transition from <span class="mono">iPhone XR</span> (Q4 2018) to <span class="mono">Samsung Galaxy S25 FE</span> (Q4 2025). Seven model-years of personal hardware, mapped as a single datasheet — display, silicon, memory, optics, power, radios, and ecosystem deltas, with no marketing surface.</p>
+
+          <div class="scale-bar" aria-hidden="true">
+            <span>SCALE 1 : 1</span>
+            <div class="ticks">
+              <i class="big"></i><i></i><i></i><i></i><i></i>
+              <i class="big"></i><i></i><i></i><i></i><i></i>
+              <i class="big"></i>
+            </div>
+            <span>0 — 50 mm</span>
+          </div>
+        </div>
+        <div class="tb-side">
+          <div class="tb-cell"><span class="k">Document</span><span class="v">DEV-EVO-001</span></div>
+          <div class="tb-cell"><span class="k">Revision</span><span class="v">A · 2026-05-17</span></div>
+          <div class="tb-cell"><span class="k">Span</span><span class="v">7 years · 2 OS</span></div>
+          <div class="tb-cell"><span class="k">Sheet</span><span class="v">1 of 1</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ELEVATIONS ───────────────────────────────────────────── -->
+    <section aria-labelledby="sec-elev">
+      <div class="sec-hd">
+        <span class="num">§ 01</span>
+        <h2 id="sec-elev">Elevations — front view, dimensional</h2>
+        <span class="tag">drawing · mm</span>
+      </div>
+
+      <div class="elev-grid">
+        <!-- iPhone XR -->
+        <article class="elev-cell">
+          <div class="meta">UNIT A · 2018</div>
+          <h3>iPhone XR</h3>
+          <div class="elev-art">
+            <svg viewBox="0 0 260 480" role="img" aria-labelledby="xr-svg-title">
+              <title id="xr-svg-title">iPhone XR front elevation, 150.9 × 75.7 mm</title>
+              <!-- top dimension -->
+              <g class="drw-dash">
+                <line x1="80" y1="36" x2="80" y2="68"/>
+                <line x1="180" y1="36" x2="180" y2="68"/>
+                <line x1="80" y1="46" x2="180" y2="46"/>
+              </g>
+              <text x="130" y="40" text-anchor="middle" class="lbl">75.7 mm</text>
+              <!-- side dimension -->
+              <g class="drw-dash">
+                <line x1="206" y1="78" x2="240" y2="78"/>
+                <line x1="206" y1="430" x2="240" y2="430"/>
+                <line x1="222" y1="78" x2="222" y2="430"/>
+              </g>
+              <text x="248" y="258" class="lbl" transform="rotate(90 248 258)" text-anchor="middle">150.9 mm</text>
+
+              <!-- body outline -->
+              <rect class="drw" x="80" y="78" width="100" height="352" rx="14" ry="14"/>
+              <!-- bezel inner -->
+              <rect class="drw-soft" x="86" y="84" width="88" height="340" rx="11" ry="11"/>
+              <!-- screen area with notch -->
+              <path class="drw" d="M 92 92 L 116 92 L 116 100 Q 116 106 122 106 L 138 106 Q 144 106 144 100 L 144 92 L 168 92 L 168 416 L 92 416 Z"/>
+              <!-- notch detail -->
+              <circle class="drw-soft" cx="124" cy="99" r="1.2"/>
+              <circle class="drw-soft" cx="136" cy="99" r="1.2"/>
+              <rect class="drw-soft" x="128" y="98" width="4" height="2"/>
+              <!-- camera bump (rear hint) -->
+              <circle class="drw-soft" cx="100" cy="108" r="6"/>
+              <circle class="drw-soft" cx="100" cy="108" r="2.2"/>
+
+              <!-- callouts -->
+              <g class="drw-dash">
+                <line x1="168" y1="99" x2="200" y2="60"/>
+              </g>
+              <text x="202" y="58" class="lbl-sm">A · NOTCH · TRUEDEPTH</text>
+              <g class="drw-dash">
+                <line x1="100" y1="114" x2="42" y2="140"/>
+              </g>
+              <text x="40" y="138" class="lbl-sm" text-anchor="end">B · 12 MP f/1.8</text>
+              <g class="drw-dash">
+                <line x1="92" y1="416" x2="42" y2="440"/>
+              </g>
+              <text x="40" y="438" class="lbl-sm" text-anchor="end">C · LCD · 6.1"</text>
+
+              <!-- side button -->
+              <line class="drw" x1="180" y1="160" x2="180" y2="200"/>
+              <line class="drw-soft" x1="80" y1="140" x2="80" y2="156"/>
+              <line class="drw-soft" x1="80" y1="170" x2="80" y2="200"/>
+              <line class="drw-soft" x1="80" y1="208" x2="80" y2="238"/>
+              <!-- lightning port -->
+              <rect class="drw" x="120" y="437" width="20" height="3"/>
+              <text x="130" y="464" class="lbl-sm" text-anchor="middle">LIGHTNING</text>
+            </svg>
+          </div>
+          <div class="elev-foot">
+            <div class="kv"><span class="k">H × W × D</span><span class="v">150.9 · 75.7 · 8.3</span></div>
+            <div class="kv"><span class="k">Mass</span><span class="v">194 g</span></div>
+            <div class="kv"><span class="k">Ingress</span><span class="v">IP67</span></div>
+          </div>
+        </article>
+
+        <!-- Galaxy S25 FE -->
+        <article class="elev-cell">
+          <div class="meta">UNIT B · 2025</div>
+          <h3>Samsung Galaxy S25 FE</h3>
+          <div class="elev-art">
+            <svg viewBox="0 0 260 480" role="img" aria-labelledby="s25-svg-title">
+              <title id="s25-svg-title">Galaxy S25 FE front elevation, 161.3 × 76.6 mm</title>
+              <!-- top dim -->
+              <g class="drw-dash">
+                <line x1="78" y1="30" x2="78" y2="62"/>
+                <line x1="182" y1="30" x2="182" y2="62"/>
+                <line x1="78" y1="40" x2="182" y2="40"/>
+              </g>
+              <text x="130" y="34" text-anchor="middle" class="lbl">76.6 mm</text>
+              <!-- side dim -->
+              <g class="drw-dash">
+                <line x1="208" y1="72" x2="242" y2="72"/>
+                <line x1="208" y1="446" x2="242" y2="446"/>
+                <line x1="224" y1="72" x2="224" y2="446"/>
+              </g>
+              <text x="250" y="262" class="lbl" transform="rotate(90 250 262)" text-anchor="middle">161.3 mm</text>
+
+              <!-- body -->
+              <rect class="drw" x="78" y="72" width="104" height="374" rx="14" ry="14"/>
+              <!-- nearly bezel-less inner -->
+              <rect class="drw-soft" x="82" y="76" width="96" height="366" rx="12" ry="12"/>
+              <!-- AMOLED area -->
+              <rect class="drw" x="86" y="82" width="88" height="354" rx="10" ry="10"/>
+              <!-- punch-hole front cam -->
+              <circle class="drw" cx="130" cy="93" r="2.4"/>
+              <!-- under-display fingerprint sensor (dashed) -->
+              <circle class="drw-dash" cx="130" cy="380" r="9"/>
+              <text x="130" y="383" class="lbl-sm" text-anchor="middle">FP</text>
+
+              <!-- side buttons -->
+              <line class="drw" x1="182" y1="140" x2="182" y2="160"/>
+              <line class="drw" x1="182" y1="170" x2="182" y2="200"/>
+              <line class="drw-soft" x1="78" y1="170" x2="78" y2="200"/>
+
+              <!-- USB-C bottom -->
+              <rect class="drw" x="120" y="450" width="20" height="3" rx="1.5"/>
+              <text x="130" y="476" class="lbl-sm" text-anchor="middle">USB-C</text>
+
+              <!-- callouts -->
+              <g class="drw-dash"><line x1="130" y1="90" x2="200" y2="56"/></g>
+              <text x="202" y="54" class="lbl-sm">A · PUNCH-HOLE · 12 MP</text>
+              <g class="drw-dash"><line x1="120" y1="380" x2="44" y2="372"/></g>
+              <text x="42" y="370" class="lbl-sm" text-anchor="end">B · ULTRASONIC FP</text>
+              <g class="drw-dash"><line x1="86" y1="436" x2="42" y2="448"/></g>
+              <text x="40" y="446" class="lbl-sm" text-anchor="end">C · AMOLED · 6.7"</text>
+            </svg>
+          </div>
+          <div class="elev-foot">
+            <div class="kv"><span class="k">H × W × D</span><span class="v">161.3 · 76.6 · 7.4</span></div>
+            <div class="kv"><span class="k">Mass</span><span class="v">~210 g</span></div>
+            <div class="kv"><span class="k">Ingress</span><span class="v">IP68</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── SPEC MATRIX ─────────────────────────────────────────── -->
+    <section aria-labelledby="sec-matrix">
+      <div class="sec-hd">
+        <span class="num">§ 02</span>
+        <h2 id="sec-matrix">Comparison matrix — subsystem by subsystem</h2>
+        <span class="tag">specsheet · Δ delta</span>
+      </div>
+
+      <table class="matrix" aria-describedby="matrix-note">
+        <thead>
+          <tr>
+            <th scope="col">Subsystem</th>
+            <th scope="col">iPhone XR · 2018</th>
+            <th scope="col">Galaxy S25 FE · 2025</th>
+            <th scope="col">Δ Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cat">Display</td>
+            <td class="col-a">6.1" LCD · 1792×828 · 326 ppi · 60 Hz</td>
+            <td class="col-b">6.7" AMOLED 2X · 2340×1080 · 120 Hz adaptive · HDR10+</td>
+            <td class="delta">+0.6" · 2× refresh · LCD → AMOLED</td>
+          </tr>
+          <tr>
+            <td class="cat">SoC</td>
+            <td class="col-a">Apple A12 Bionic · 7 nm · 6C CPU / 4C GPU</td>
+            <td class="col-b">Exynos 2400e · 4 nm · 10C CPU / Xclipse GPU</td>
+            <td class="delta">7 nm → 4 nm · +4 CPU cores</td>
+          </tr>
+          <tr>
+            <td class="cat">Memory</td>
+            <td class="col-a">3 GB</td>
+            <td class="col-b">8 GB LPDDR5X</td>
+            <td class="delta">+5 GB · 2.67×</td>
+          </tr>
+          <tr>
+            <td class="cat">Storage</td>
+            <td class="col-a">64 / 128 / 256 GB</td>
+            <td class="col-b">128 / 256 / 512 GB · UFS 4.0</td>
+            <td class="delta">2× max · UFS 4.0</td>
+          </tr>
+          <tr>
+            <td class="cat">Rear camera</td>
+            <td class="col-a">12 MP wide f/1.8 OIS · single lens</td>
+            <td class="col-b">50 MP wide f/1.8 OIS · 12 MP UW f/2.2 · 8 MP 3× tele OIS</td>
+            <td class="delta">1 → 3 lenses · +38 MP main</td>
+          </tr>
+          <tr>
+            <td class="cat">Front camera</td>
+            <td class="col-a">7 MP f/2.2 · TrueDepth</td>
+            <td class="col-b">12 MP f/2.2 · punch-hole</td>
+            <td class="delta">+5 MP · notch → cutout</td>
+          </tr>
+          <tr>
+            <td class="cat">Video</td>
+            <td class="col-a">4K @ 60 fps</td>
+            <td class="col-b">8K @ 30 fps · 4K @ 60 fps</td>
+            <td class="delta">+ 8K capture</td>
+          </tr>
+          <tr>
+            <td class="cat">Battery</td>
+            <td class="col-a">2942 mAh</td>
+            <td class="col-b">4900 mAh</td>
+            <td class="delta">+1958 mAh · +66 %</td>
+          </tr>
+          <tr>
+            <td class="cat">Charging</td>
+            <td class="col-a">Lightning · 18 W wired · 7.5 W Qi</td>
+            <td class="col-b">USB-C · 45 W wired · 15 W Qi · reverse wireless</td>
+            <td class="delta">2.5× wired · 2× wireless</td>
+          </tr>
+          <tr>
+            <td class="cat">Connectivity</td>
+            <td class="col-a">4G LTE · Wi-Fi 5 · BT 5.0</td>
+            <td class="col-b">5G sub-6 · Wi-Fi 6E · BT 5.3 · NFC · UWB</td>
+            <td class="delta">4G → 5G · + UWB</td>
+          </tr>
+          <tr>
+            <td class="cat">Authentication</td>
+            <td class="col-a">Face ID · structured IR</td>
+            <td class="col-b">Ultrasonic in-display FP · 2D face</td>
+            <td class="delta">IR depth → ultrasonic</td>
+          </tr>
+          <tr>
+            <td class="cat">Operating system</td>
+            <td class="col-a">iOS 12 → iOS 18 · ~6 yrs support</td>
+            <td class="col-b">One UI 7 / Android 15 · 7-yr OS commitment</td>
+            <td class="delta">platform shift · iOS → Android</td>
+          </tr>
+          <tr>
+            <td class="cat">Ingress</td>
+            <td class="col-a">IP67 · 1 m · 30 min</td>
+            <td class="col-b">IP68 · 1.5 m · 30 min</td>
+            <td class="delta">IP67 → IP68</td>
+          </tr>
+          <tr>
+            <td class="cat">Weight</td>
+            <td class="col-a">194 g</td>
+            <td class="col-b">~210 g</td>
+            <td class="delta">+16 g · +8 %</td>
+          </tr>
+        </tbody>
+      </table>
+      <p id="matrix-note" class="micro" style="margin-top:14px;">Note · figures sourced from manufacturer datasheets and verified spec pages. Δ column is informational, not a benchmark.</p>
+    </section>
+
+    <!-- ─── DELTA BARS ──────────────────────────────────────────── -->
+    <section aria-labelledby="sec-delta">
+      <div class="sec-hd">
+        <span class="num">§ 03</span>
+        <h2 id="sec-delta">Capability deltas — quantitative</h2>
+        <span class="tag">bars · relative scale</span>
+      </div>
+
+      <div class="delta-grid">
+        <!-- RAM -->
+        <div class="delta-cell">
+          <div class="lab"><span class="name">Memory · RAM</span><span class="factor">× 2.67</span></div>
+          <div class="delta-row a">
+            <span class="v">3 GB</span>
+            <div class="bar" aria-hidden="true"><i style="width:37.5%"></i></div>
+            <span class="v r">XR</span>
+          </div>
+          <div class="delta-row b">
+            <span class="v">8 GB</span>
+            <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+            <span class="v r">S25 FE</span>
+          </div>
+        </div>
+
+        <!-- Battery -->
+        <div class="delta-cell">
+          <div class="lab"><span class="name">Battery · capacity</span><span class="factor">+ 1958 mAh</span></div>
+          <div class="delta-row a">
+            <span class="v">2942</span>
+            <div class="bar" aria-hidden="true"><i style="width:60%"></i></div>
+            <span class="v r">XR</span>
+          </div>
+          <div class="delta-row b">
+            <span class="v">4900</span>
+            <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+            <span class="v r">S25 FE</span>
+          </div>
+        </div>
+
+        <!-- Refresh -->
+        <div class="delta-cell">
+          <div class="lab"><span class="name">Display · refresh</span><span class="factor">× 2</span></div>
+          <div class="delta-row a">
+            <span class="v">60 Hz</span>
+            <div class="bar" aria-hidden="true"><i style="width:50%"></i></div>
+            <span class="v r">XR</span>
+          </div>
+          <div class="delta-row b">
+            <span class="v">120 Hz</span>
+            <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+            <span class="v r">S25 FE</span>
+          </div>
+        </div>
+
+        <!-- Charging -->
+        <div class="delta-cell">
+          <div class="lab"><span class="name">Charging · wired</span><span class="factor">× 2.5</span></div>
+          <div class="delta-row a">
+            <span class="v">18 W</span>
+            <div class="bar" aria-hidden="true"><i style="width:40%"></i></div>
+            <span class="v r">XR</span>
+          </div>
+          <div class="delta-row b">
+            <span class="v">45 W</span>
+            <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+            <span class="v r">S25 FE</span>
+          </div>
+        </div>
+
+        <!-- Cameras -->
+        <div class="delta-cell">
+          <div class="lab"><span class="name">Rear cameras · count</span><span class="factor">× 3</span></div>
+          <div class="delta-row a">
+            <span class="v">1</span>
+            <div class="bar" aria-hidden="true"><i style="width:33.3%"></i></div>
+            <span class="v r">XR</span>
+          </div>
+          <div class="delta-row b">
+            <span class="v">3</span>
+            <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+            <span class="v r">S25 FE</span>
+          </div>
+        </div>
+
+        <!-- Network -->
+        <div class="delta-cell">
+          <div class="lab"><span class="name">Cellular · generation</span><span class="factor">4G → 5G</span></div>
+          <div class="delta-row a">
+            <span class="v">4G</span>
+            <div class="bar" aria-hidden="true"><i style="width:55%"></i></div>
+            <span class="v r">XR</span>
+          </div>
+          <div class="delta-row b">
+            <span class="v">5G</span>
+            <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+            <span class="v r">S25 FE</span>
+          </div>
+        </div>
+
+        <!-- Process node -->
+        <div class="delta-cell">
+          <div class="lab"><span class="name">Process node · SoC</span><span class="factor">7 → 4 nm</span></div>
+          <div class="delta-row a">
+            <span class="v">7 nm</span>
+            <div class="bar" aria-hidden="true"><i style="width:57%"></i></div>
+            <span class="v r">XR</span>
+          </div>
+          <div class="delta-row b">
+            <span class="v">4 nm</span>
+            <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+            <span class="v r">S25 FE</span>
+          </div>
+        </div>
+
+        <!-- Main camera MP -->
+        <div class="delta-cell">
+          <div class="lab"><span class="name">Main sensor · resolution</span><span class="factor">× 4.17</span></div>
+          <div class="delta-row a">
+            <span class="v">12 MP</span>
+            <div class="bar" aria-hidden="true"><i style="width:24%"></i></div>
+            <span class="v r">XR</span>
+          </div>
+          <div class="delta-row b">
+            <span class="v">50 MP</span>
+            <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+            <span class="v r">S25 FE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ARCHITECTURE / SYSTEM SHIFT ──────────────────────────── -->
+    <section aria-labelledby="sec-arch">
+      <div class="sec-hd">
+        <span class="num">§ 04</span>
+        <h2 id="sec-arch">System shift — ecosystem &amp; subsystem migration</h2>
+        <span class="tag">block diagram</span>
+      </div>
+
+      <div class="arch-wrap">
+        <svg viewBox="0 0 1080 520" role="img" aria-labelledby="arch-svg-title">
+          <title id="arch-svg-title">Architecture diagram showing migration from iOS / Apple ecosystem to Android / Samsung ecosystem</title>
+
+          <!-- frame title -->
+          <text x="20" y="22" class="lbl">ARCH · ECOSYSTEM MIGRATION · 2018 → 2025</text>
+          <line x1="20" y1="30" x2="1060" y2="30" class="drw-soft"/>
+
+          <!-- left column header -->
+          <text x="120" y="58" text-anchor="middle" class="lbl">UNIT A · 2018 · WALLED GARDEN</text>
+          <!-- right column header -->
+          <text x="960" y="58" text-anchor="middle" class="lbl">UNIT B · 2025 · OPEN ANDROID</text>
+          <line x1="20" y1="70" x2="220" y2="70" class="drw-soft"/>
+          <line x1="860" y1="70" x2="1060" y2="70" class="drw-soft"/>
+
+          <!-- LEFT STACK (iPhone XR) -->
+          <!-- OS layer -->
+          <rect class="drw-fill" x="20" y="90" width="200" height="46"/>
+          <text x="120" y="113" text-anchor="middle" class="lbl">OS · iOS 12 → 18</text>
+          <text x="120" y="127" text-anchor="middle" class="lbl-sm">CLOSED · ~6 YR SUPPORT</text>
+
+          <!-- SoC -->
+          <rect class="drw-fill" x="20" y="150" width="200" height="46"/>
+          <text x="120" y="173" text-anchor="middle" class="lbl">SoC · APPLE A12</text>
+          <text x="120" y="187" text-anchor="middle" class="lbl-sm">7 nm · 6C CPU</text>
+
+          <!-- Memory -->
+          <rect class="drw-fill" x="20" y="210" width="200" height="46"/>
+          <text x="120" y="233" text-anchor="middle" class="lbl">MEM · 3 GB</text>
+          <text x="120" y="247" text-anchor="middle" class="lbl-sm">LPDDR4X</text>
+
+          <!-- Auth -->
+          <rect class="drw-fill" x="20" y="270" width="200" height="46"/>
+          <text x="120" y="293" text-anchor="middle" class="lbl">AUTH · FACE ID</text>
+          <text x="120" y="307" text-anchor="middle" class="lbl-sm">STRUCTURED IR</text>
+
+          <!-- IO -->
+          <rect class="drw-fill" x="20" y="330" width="200" height="46"/>
+          <text x="120" y="353" text-anchor="middle" class="lbl">I/O · LIGHTNING</text>
+          <text x="120" y="367" text-anchor="middle" class="lbl-sm">USB 2.0 · PROPRIETARY</text>
+
+          <!-- Radio -->
+          <rect class="drw-fill" x="20" y="390" width="200" height="46"/>
+          <text x="120" y="413" text-anchor="middle" class="lbl">RADIO · 4G LTE</text>
+          <text x="120" y="427" text-anchor="middle" class="lbl-sm">Wi-Fi 5 · BT 5.0</text>
+
+          <!-- Store / sandbox -->
+          <rect class="drw-fill" x="20" y="450" width="200" height="46"/>
+          <text x="120" y="473" text-anchor="middle" class="lbl">DIST · APP STORE</text>
+          <text x="120" y="487" text-anchor="middle" class="lbl-sm">SANDBOXED · SINGLE SOURCE</text>
+
+          <!-- RIGHT STACK (S25 FE) -->
+          <rect class="drw-fill" x="860" y="90" width="200" height="46"/>
+          <text x="960" y="113" text-anchor="middle" class="lbl">OS · ONE UI 7 / ANDROID 15</text>
+          <text x="960" y="127" text-anchor="middle" class="lbl-sm">7-YR OS COMMITMENT</text>
+
+          <rect class="drw-fill" x="860" y="150" width="200" height="46"/>
+          <text x="960" y="173" text-anchor="middle" class="lbl">SoC · EXYNOS 2400e</text>
+          <text x="960" y="187" text-anchor="middle" class="lbl-sm">4 nm · 10C CPU · XCLIPSE GPU</text>
+
+          <rect class="drw-fill" x="860" y="210" width="200" height="46"/>
+          <text x="960" y="233" text-anchor="middle" class="lbl">MEM · 8 GB</text>
+          <text x="960" y="247" text-anchor="middle" class="lbl-sm">LPDDR5X</text>
+
+          <rect class="drw-fill" x="860" y="270" width="200" height="46"/>
+          <text x="960" y="293" text-anchor="middle" class="lbl">AUTH · FP + FACE</text>
+          <text x="960" y="307" text-anchor="middle" class="lbl-sm">ULTRASONIC IN-DISPLAY</text>
+
+          <rect class="drw-fill" x="860" y="330" width="200" height="46"/>
+          <text x="960" y="353" text-anchor="middle" class="lbl">I/O · USB-C</text>
+          <text x="960" y="367" text-anchor="middle" class="lbl-sm">USB 3.2 · DISPLAYPORT ALT</text>
+
+          <rect class="drw-fill" x="860" y="390" width="200" height="46"/>
+          <text x="960" y="413" text-anchor="middle" class="lbl">RADIO · 5G SUB-6</text>
+          <text x="960" y="427" text-anchor="middle" class="lbl-sm">Wi-Fi 6E · BT 5.3 · UWB · NFC</text>
+
+          <rect class="drw-fill" x="860" y="450" width="200" height="46"/>
+          <text x="960" y="473" text-anchor="middle" class="lbl">DIST · PLAY + SIDELOAD</text>
+          <text x="960" y="487" text-anchor="middle" class="lbl-sm">OPEN · F-DROID · APK · ADB</text>
+
+          <!-- CENTER MIGRATION CHANNEL -->
+          <rect x="280" y="86" width="520" height="416" class="drw-soft" fill="none"/>
+          <line x1="280" y1="100" x2="800" y2="100" class="drw-dash"/>
+          <text x="540" y="96" text-anchor="middle" class="lbl">MIGRATION CHANNEL · DELTA</text>
+
+          <!-- pair labels (between rows) -->
+          <!-- OS -->
+          <text x="290" y="118" class="lbl-sm">OS</text>
+          <line x1="220" y1="113" x2="280" y2="113" class="drw-acc"/>
+          <line x1="800" y1="113" x2="860" y2="113" class="drw-acc"/>
+          <text x="540" y="118" text-anchor="middle" class="lbl">iOS  ⟶  ANDROID</text>
+
+          <text x="290" y="178" class="lbl-sm">SoC</text>
+          <line x1="220" y1="173" x2="280" y2="173" class="drw-acc"/>
+          <line x1="800" y1="173" x2="860" y2="173" class="drw-acc"/>
+          <text x="540" y="178" text-anchor="middle" class="lbl">APPLE SILICON  ⟶  EXYNOS</text>
+
+          <text x="290" y="238" class="lbl-sm">MEM</text>
+          <line x1="220" y1="233" x2="280" y2="233" class="drw-acc"/>
+          <line x1="800" y1="233" x2="860" y2="233" class="drw-acc"/>
+          <text x="540" y="238" text-anchor="middle" class="lbl">3 GB  ⟶  8 GB  · +5 GB</text>
+
+          <text x="290" y="298" class="lbl-sm">AUTH</text>
+          <line x1="220" y1="293" x2="280" y2="293" class="drw-acc"/>
+          <line x1="800" y1="293" x2="860" y2="293" class="drw-acc"/>
+          <text x="540" y="298" text-anchor="middle" class="lbl">FACE ID  ⟶  FP + FACE</text>
+
+          <text x="290" y="358" class="lbl-sm">I/O</text>
+          <line x1="220" y1="353" x2="280" y2="353" class="drw-acc"/>
+          <line x1="800" y1="353" x2="860" y2="353" class="drw-acc"/>
+          <text x="540" y="358" text-anchor="middle" class="lbl">LIGHTNING  ⟶  USB-C</text>
+
+          <text x="290" y="418" class="lbl-sm">RF</text>
+          <line x1="220" y1="413" x2="280" y2="413" class="drw-acc"/>
+          <line x1="800" y1="413" x2="860" y2="413" class="drw-acc"/>
+          <text x="540" y="418" text-anchor="middle" class="lbl">4G LTE  ⟶  5G + UWB</text>
+
+          <text x="290" y="478" class="lbl-sm">DIST</text>
+          <line x1="220" y1="473" x2="280" y2="473" class="drw-acc"/>
+          <line x1="800" y1="473" x2="860" y2="473" class="drw-acc"/>
+          <text x="540" y="478" text-anchor="middle" class="lbl">WALLED GARDEN  ⟶  OPEN</text>
+
+        </svg>
+
+        <div class="arch-legend">
+          <span class="key"><span class="swatch"></span>subsystem block</span>
+          <span class="key"><span class="swatch acc"></span>migration delta</span>
+          <span class="key"><span class="swatch line"></span>logical link · dashed</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── TIMELINE ────────────────────────────────────────────── -->
+    <section aria-labelledby="sec-tl">
+      <div class="sec-hd">
+        <span class="num">§ 05</span>
+        <h2 id="sec-tl">Timeline — 2018 to 2025</h2>
+        <span class="tag">lifespan · beats</span>
+      </div>
+
+      <div class="tl">
+        <div class="tl-svg-wrap">
+          <svg viewBox="0 0 1080 220" role="img" aria-labelledby="tl-svg-title">
+            <title id="tl-svg-title">Device timeline spanning 2018 to 2025</title>
+
+            <!-- axis -->
+            <line x1="40" y1="140" x2="1040" y2="140" class="drw"/>
+            <!-- year ticks: 8 ticks 2018-2025 -->
+            <g>
+              <!-- 2018 -->
+              <line x1="40"  y1="140" x2="40"  y2="150" class="drw"/>
+              <text x="40"  y="168" text-anchor="middle" class="lbl">2018</text>
+              <!-- 2019 -->
+              <line x1="183" y1="140" x2="183" y2="150" class="drw"/>
+              <text x="183" y="168" text-anchor="middle" class="lbl">2019</text>
+              <!-- 2020 -->
+              <line x1="326" y1="140" x2="326" y2="150" class="drw"/>
+              <text x="326" y="168" text-anchor="middle" class="lbl">2020</text>
+              <!-- 2021 -->
+              <line x1="469" y1="140" x2="469" y2="150" class="drw"/>
+              <text x="469" y="168" text-anchor="middle" class="lbl">2021</text>
+              <!-- 2022 -->
+              <line x1="612" y1="140" x2="612" y2="150" class="drw"/>
+              <text x="612" y="168" text-anchor="middle" class="lbl">2022</text>
+              <!-- 2023 -->
+              <line x1="755" y1="140" x2="755" y2="150" class="drw"/>
+              <text x="755" y="168" text-anchor="middle" class="lbl">2023</text>
+              <!-- 2024 -->
+              <line x1="898" y1="140" x2="898" y2="150" class="drw"/>
+              <text x="898" y="168" text-anchor="middle" class="lbl">2024</text>
+              <!-- 2025 -->
+              <line x1="1040" y1="140" x2="1040" y2="150" class="drw"/>
+              <text x="1040" y="168" text-anchor="middle" class="lbl">2025</text>
+            </g>
+
+            <!-- minor grid -->
+            <g class="drw-soft" opacity="0.45">
+              <line x1="40" y1="60" x2="1040" y2="60"/>
+              <line x1="40" y1="100" x2="1040" y2="100"/>
+            </g>
+            <text x="40" y="56" class="lbl-sm">DEVICE LIFESPAN BAND</text>
+            <text x="40" y="118" class="lbl-sm">CONTEXTUAL BEATS</text>
+
+            <!-- lifespan band: XR Oct 2018 → S25 FE Q4 2025 (use of XR ends ~late 2025) -->
+            <rect x="100" y="78" width="900" height="14" class="drw" fill="var(--accent-tint)"/>
+            <text x="100" y="74" class="lbl">iPhone XR · primary device</text>
+            <text x="1000" y="74" text-anchor="end" class="lbl">Galaxy S25 FE · primary</text>
+
+            <!-- key milestone markers -->
+            <!-- iPhone XR launch Q4 2018 -->
+            <g>
+              <line x1="100" y1="68" x2="100" y2="140" class="drw-dash"/>
+              <circle cx="100" cy="140" r="3" fill="var(--ink)"/>
+              <text x="100" y="200" text-anchor="middle" class="lbl">XR · LAUNCH</text>
+              <text x="100" y="212" text-anchor="middle" class="lbl-sm">Q4 2018</text>
+            </g>
+            <!-- iOS 13/14/15... call out one beat: iOS 16 dropped iPhone X family (XR retained), 2022 -->
+            <g>
+              <line x1="612" y1="106" x2="612" y2="140" class="drw-dash"/>
+              <circle cx="612" cy="140" r="3" fill="var(--ink)"/>
+              <text x="612" y="100" text-anchor="middle" class="lbl-sm">iOS 16</text>
+            </g>
+            <!-- 2024: iOS 18 final supported release for XR -->
+            <g>
+              <line x1="898" y1="106" x2="898" y2="140" class="drw-dash"/>
+              <circle cx="898" cy="140" r="3" fill="var(--ink)"/>
+              <text x="898" y="100" text-anchor="middle" class="lbl-sm">iOS 18 · XR FINAL</text>
+            </g>
+            <!-- S25 FE launch Q4 2025 -->
+            <g>
+              <line x1="1000" y1="68" x2="1000" y2="140" class="drw-acc" stroke-dasharray="3 3"/>
+              <circle cx="1000" cy="140" r="3.4" fill="var(--accent)"/>
+              <text x="1000" y="200" text-anchor="middle" class="lbl">S25 FE · LAUNCH</text>
+              <text x="1000" y="212" text-anchor="middle" class="lbl-sm">Q4 2025</text>
+            </g>
+
+            <!-- generational tech beats above axis -->
+            <g>
+              <text x="183" y="40" text-anchor="middle" class="lbl-sm">5G ROLLOUT BEGINS</text>
+              <line x1="183" y1="44" x2="183" y2="60" class="drw-dash"/>
+            </g>
+            <g>
+              <text x="469" y="40" text-anchor="middle" class="lbl-sm">USB-C MANDATE (EU)</text>
+              <line x1="469" y1="44" x2="469" y2="60" class="drw-dash"/>
+            </g>
+            <g>
+              <text x="755" y="40" text-anchor="middle" class="lbl-sm">ON-DEVICE LLMs</text>
+              <line x1="755" y1="44" x2="755" y2="60" class="drw-dash"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FOOTER ──────────────────────────────────────────────── -->
+    <footer aria-labelledby="ft">
+      <h2 id="ft" class="micro" style="margin:0 0 18px;">Document control</h2>
+      <div class="ft-grid">
+        <div class="col">
+          <span class="k">Drawing no.</span>
+          <span class="v">DEV-EVO-001</span>
+        </div>
+        <div class="col">
+          <span class="k">Revision</span>
+          <span class="v">A · build 2026-05-17</span>
+        </div>
+        <div class="col">
+          <span class="k">Sheet</span>
+          <span class="v">1 of 1 · scale 1 : 1</span>
+        </div>
+        <div class="col">
+          <span class="k">Maintainer</span>
+          <span class="v">tiennm99</span>
+        </div>
+        <div class="col">
+          <span class="k">Status</span>
+          <span class="v">Released · personal record</span>
+        </div>
+        <div class="col">
+          <span class="k">Notes</span>
+          <span class="v">Specs per OEM datasheets. No warranty implied.</span>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+</body>
+</html>
